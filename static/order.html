@@ -6,69 +6,67 @@
 
  <title>Order Meals</title>
 </head>
+  <body>
+    <h1>Confirm order</h1>
+    <table>
+      <tr>
+        <th>Meal</th>
+        <th>Price</th>
+        <th>View</th>
+      </tr>
+      <tr>
+        <td>Pigeon</td>
+        <td>Common in cities</td>
+      </tr>
+    </table>
+    <br/>
+    <button>
+      Place order
+    </button>
 
-<body>
-  <div id=mealDiv>
-
-  </div>
 
 
-  <!--
-    This section is the script that will
-    run on each page load to fetch the list of meals
-    and add them to the body 
-   -->
-<script>
-  /*
-  Use the browsers `fetch` API to make a GET call to /meal
-  We expect the response to be a JSON list of meal, of the
-  form :
-  [
-    {"Food":"...","Price":"...", "Image":"..."},
-    {"Food":"...","Price":"...", "Image":"..."}
-  ]
-  */
-  fetch("/meal")
-    .then(response => response.json())
-    .then(mealList => {
-      //Once we fetch the list, we iterate over it
-        mealList.forEach(meal => {
-        // get the data for meal 1
-        Food = document.createElement("p")
-        Food.innerHTML = meal.foodName
-        Food.classList.add("mealStyle")
-        Price = document.createElement("p")
-        Price.innerHTML = '$'+ meal.cost
-        Price.classList.add("priceStyle")
-        Image = document.createElement("img")
-        PreLink= "/static/images/"
-        Image.src = PreLink + meal.imagelink
-        Image.classList.add("imageStyle")
-        console.log(Image.src)
 
-        //create new div variables to contain each meal
-        newDiv = document.createElement("div")
-        newDiv.appendChild(Image)
-        newDiv.appendChild(Food)
-        newDiv.appendChild(Price)
-        
-
-        // Add new divs to already existing div in body of html
-        var fillDiv = document.getElementById("mealDiv");
-        fillDiv.appendChild(newDiv)
-        // fillDiv.appendChild(Price)
-        // fillDiv.appendChild(Image)
-
-      })
-    })
-</script>
-
-</body>
-
+    <script>
+      mealTable = document.querySelector("table")
+  
+      /*
+      Use the browsers `fetch` API to make a GET call to /meal to get the selected meal
+      We expect the response to be a JSON format of the selected food, of the
+      form :
+      [
+       {"Food":"...","Price":"...", "Image":"..."},
+      ]
+      */
+      fetch("/meal")
+        .then(response => response.json())
+        .then(OrderedMeal => {
+          //Once we fetch the list, we iterate over it
+          OrderedMeal.forEach(meal => {
+            // Create the table row
+            row = document.createElement("tr")
+  
+            // Create the table data elements for the species and
+            // description columns
+            Food = document.createElement("td")
+            Food.innerHTML = meal.foodName
+            Price = document.createElement("td")
+            Price.innerHTML = meal.cost
+            View = document.createElement("td")
+            Image = document.createElement("img")
+            PreLink= "/static/images/"
+            Image.src = PreLink + meal.imagelink
+            Image.classList.add("mealView")
+            View.appendChild(Image)
+  
+            // Add the data elements to the row
+            row.appendChild(Food)
+            row.appendChild(Price)
+            row.appendChild(View)
+            // Finally, add the row element to the table itself
+            mealTable.appendChild(row)
+          })
+        })
+    </script>
+  </body>
 </html>
-
-
-
-
-
-
