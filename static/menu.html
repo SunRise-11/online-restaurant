@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+
+ <title>Order Meals</title>
+</head>
+
+<body>
+  <div id=mealDiv>
+
+  </div>
+
+
+  <!--
+    This section is the script that will
+    run on each page load to fetch the list of meals
+    and add them to the body 
+   -->
+<script>
+  /*
+  Use the browsers `fetch` API to make a GET call to /meal
+  We expect the response to be a JSON list of meal, of the
+  form :
+  [
+    {"Food":"...","Price":"...", "Image":"..."},
+    {"Food":"...","Price":"...", "Image":"..."}
+  ]
+  */
+  fetch("/meal")
+    .then(response => response.json())
+    .then(mealList => {
+      //Once we fetch the list, we iterate over it
+        mealList.forEach(meal => {
+        // get the data for meal 1
+        Food = document.createElement("p")
+        Food.innerHTML = meal.foodName
+        Food.classList.add("mealStyle")
+        Price = document.createElement("p")
+        Price.innerHTML = '$'+ meal.cost
+        Price.classList.add("priceStyle")
+        Image = document.createElement("img")
+        PreLink= "/static/images/"
+        Image.src = PreLink + meal.imagelink
+        Image.classList.add("imageStyle")
+        OrderBtn= document.createElement("a")
+        OrderBtn.href= ""
+        // "/static/order.html"
+        OrderBtn.innerHTML= "Order"
+        OrderBtn.classList.add("orderBtn")
+
+        //create new div variables to contain each meal
+        newDiv = document.createElement("div")
+        newDiv.appendChild(Image)
+        newDiv.appendChild(Food)
+        newDiv.appendChild(Price)
+        newDiv.appendChild(OrderBtn)
+        
+        // Add new divs to already existing div in body of html
+        var fillDiv = document.getElementById("mealDiv");
+        fillDiv.appendChild(newDiv)
+        // fillDiv.appendChild(Price)
+        // fillDiv.appendChild(Image)
+
+      })
+    })
+</script>
+
+</body>
+
+</html>
+
+
+
+
+
+
