@@ -15,8 +15,8 @@ func frontpageHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./static/homepage.html"))
 	tmpl.Execute(w, tmpl)
 }
-func orderHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("./static/order.html"))
+func menuHandler(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles("./static/menu.html"))
 	tmpl.Execute(w, tmpl)
 }
 
@@ -24,7 +24,7 @@ func newRouter() *mux.Router {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/home/", frontpageHandler).Methods("GET")
-	r.HandleFunc("/order/", orderHandler).Methods("GET")
+	r.HandleFunc("/order/", menuHandler).Methods("GET")
 	r.HandleFunc("/meal", getMealHandler).Methods("GET")
 
 	//serve static files
