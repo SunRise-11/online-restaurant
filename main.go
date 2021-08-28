@@ -19,13 +19,22 @@ func menuHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("./static/menu.html"))
 	tmpl.Execute(w, tmpl)
 }
+func orderHandler(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles("./static/order.html"))
+	tmpl.Execute(w, tmpl)
+}
 
 func newRouter() *mux.Router {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/home/", frontpageHandler).Methods("GET")
-	r.HandleFunc("/order/", menuHandler).Methods("GET")
+	r.HandleFunc("/menu/", menuHandler).Methods("GET")
+	r.HandleFunc("/order/", orderHandler).Methods("GET")
+
+	// database query functions
 	r.HandleFunc("/meal", getMealHandler).Methods("GET")
+	r.HandleFunc("/meal", createOrderHandler).Methods("POST")
+	r.HandleFunc("/customer", CustomerInfoHandler).Methods("POST")
 
 	//serve static files
 	staticFileDirectory := http.Dir("./static")
@@ -41,7 +50,7 @@ func main() {
 
 	fmt.Println("Starting server...")
 	// insert your postgres server username and password
-	connString := "user=postgres password=12345 dbname=Foodie sslmode=disable"
+	connString := "host=Foodie-db user=postgres password=12345 dbname=Foodie sslmode=disable"
 	db, err := sql.Open("postgres", connString)
 
 	if err != nil {
