@@ -41,7 +41,9 @@ func (s *StoreSuite) SetupTest() {
 		is sometimes achieved in the form of migrations
 	*/
 	_, err := s.db.Query("DELETE FROM meal")
-	if err != nil {
+	_, err1 := s.db.Query("DELETE FROM orders")
+	_, err2 := s.db.Query("DELETE FROM customers")
+	if (err != nil) && (err1 != nil) && (err2 != nil) {
 		s.T().Fatal(err)
 	}
 }
@@ -67,6 +69,59 @@ func (s *StoreSuite) TestCreateMeal() {
 
 	// Query the database for the entry we just created
 	res, err := s.db.Query(`SELECT COUNT(*) FROM meal WHERE Food='foodName' AND Price=10 AND Image= 'imagelink' `)
+	if err != nil {
+		s.T().Fatal(err)
+	}
+
+	// Get the count result
+	var count int
+	for res.Next() {
+		err := res.Scan(&count)
+		if err != nil {
+			s.T().Error(err)
+		}
+	}
+
+	// Assert that there must be one entry with the properties of the meal that we just inserted (since the database was empty before this)
+	if count != 1 {
+		s.T().Errorf("incorrect count, wanted 1, got %d", count)
+	}
+}
+func (s *StoreSuite) TestCreateOrders() {
+	// Create a meal through the store `CreateMeal` method
+	s.store.CreateOrders(&Order{
+		OrderedMeal: "foodName",
+	})
+
+	// Query the database for the entry we just created
+	res, err := s.db.Query(`SELECT COUNT(*) FROM orders WHERE OrderedMeal='foodName' `)
+	if err != nil {
+		s.T().Fatal(err)
+	}
+
+	// Get the count result
+	var count int
+	for res.Next() {
+		err := res.Scan(&count)
+		if err != nil {
+			s.T().Error(err)
+		}
+	}
+
+	// Assert that there must be one entry with the properties of the meal that we just inserted (since the database was empty before this)
+	if count != 1 {
+		s.T().Errorf("incorrect count, wanted 1, got %d", count)
+	}
+}
+func (s *StoreSuite) TestCreateCustomer() {
+	// Create a meal through the store `CreateMeal` method
+	s.store.CreateCustomer(&Customer{
+		Name:    "customer",
+		Address: "address",
+	})
+
+	// Query the database for the entry we just created
+	res, err := s.db.Query(`SELECT COUNT(*) FROM customers WHERE Name='customer' AND Address= 'address' `)
 	if err != nil {
 		s.T().Fatal(err)
 	}
