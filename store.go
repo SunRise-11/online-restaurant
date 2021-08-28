@@ -8,6 +8,8 @@ import (
 // Our store will have one methods to get all existing meal
 // Each method returns an error, in case something goes wrong
 type Store interface {
+	CreateCustomer(customer *Customer) error
+	CreateOrders(order *Order) error
 	GetMeals() ([]*Meal, error)
 }
 
@@ -24,6 +26,24 @@ func (store *dbStore) CreateMeals(meal *Meal) error {
 	// this insert query. We just want to know if it was inserted correctly,
 	// and the error will be populated if it wasn't
 	_, err := store.db.Query("INSERT INTO meal(food, price, image) VALUES ($1,$2,$3)", meal.Food, meal.Price, meal.Image)
+	return err
+}
+
+func (store *dbStore) CreateOrders(orders *Order) error {
+	// 'Meal' is a simple struct which has "foodname" attributes
+	// THe first underscore means that we don't care about what's returned from
+	// this insert query. We just want to know if it was inserted correctly,
+	// and the error will be populated if it wasn't
+	_, err := store.db.Query("INSERT INTO orders(OrderedMeal) VALUES ($1)", orders.OrderedMeal)
+	return err
+}
+
+func (store *dbStore) CreateCustomer(customers *Customer) error {
+	// 'Meal' is a simple struct which has "Name" and "Address" attributes
+	// THe first underscore means that we don't care about what's returned from
+	// this insert query. We just want to know if it was inserted correctly,
+	// and the error will be populated if it wasn't
+	_, err := store.db.Query("INSERT INTO customers(name,address) VALUES ($1,$2)", customers.Name, customers.Address)
 	return err
 }
 
