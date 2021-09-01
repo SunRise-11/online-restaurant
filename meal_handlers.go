@@ -1,8 +1,8 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
+	"html/template"
 	"net/http"
 )
 
@@ -26,9 +26,6 @@ func getMealHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 
-	//Convert the "meals" variable to json
-	foodListBytes, err := json.Marshal(meal)
-
 	// If there is an error, print it to the console, and return a server
 	// error response to the user
 	if err != nil {
@@ -36,8 +33,20 @@ func getMealHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	// If all goes well, write the JSON list of meals to the response
-	w.Write(foodListBytes)
+
+	// tmpl := template.New("./static/homepage.html")
+	tmpl := template.Must(template.New("").ParseFiles("./static/homepage.html"))
+	// tmpl := template.Must(template.ParseFiles("./static/homepage.html"))
+	context := struct{ Meals []*Meal }{meal}
+	// tmpl.Execute(w, tmpl, context)
+	err = tmpl.ExecuteTemplate(w, "homepage.html", context)
+
+	if err != nil {
+		fmt.Println(fmt.Errorf("error: %v", err))
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
 }
 
 func createOrderHandler(w http.ResponseWriter, r *http.Request) {
