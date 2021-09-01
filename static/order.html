@@ -6,67 +6,25 @@
 
  <title>Order Meals</title>
 </head>
+
   <body>
-    <h1>Confirm order</h1>
-    <table>
-      <tr>
-        <th>Meal</th>
-        <th>Price</th>
-        <th>View</th>
-      </tr>
-      <tr>
-        <td>Pigeon</td>
-        <td>Common in cities</td>
-      </tr>
-    </table>
-    <br/>
-    <button>
-      Place order
-    </button>
+    <div>
+      <form action="/customer" method="post">
 
+        <p> Your Order has been created, kindly provide your delivery information</p>
+        
+        Name:
+        <input type="text" name="user">
+        <br/> 
+        Address
+        <input type="text" name="address">
+        <br/>
+        <input type="submit">
 
+      </form>
 
-
-    <script>
-      mealTable = document.querySelector("table")
   
-      /*
-      Use the browsers `fetch` API to make a GET call to /meal to get the selected meal
-      We expect the response to be a JSON format of the selected food, of the
-      form :
-      [
-       {"Food":"...","Price":"...", "Image":"..."},
-      ]
-      */
-      fetch("/meal")
-        .then(response => response.json())
-        .then(OrderedMeal => {
-          //Once we fetch the list, we iterate over it
-          OrderedMeal.forEach(meal => {
-            // Create the table row
-            row = document.createElement("tr")
-  
-            // Create the table data elements for the species and
-            // description columns
-            Food = document.createElement("td")
-            Food.innerHTML = meal.foodName
-            Price = document.createElement("td")
-            Price.innerHTML = meal.cost
-            View = document.createElement("td")
-            Image = document.createElement("img")
-            PreLink= "/static/images/"
-            Image.src = PreLink + meal.imagelink
-            Image.classList.add("mealView")
-            View.appendChild(Image)
-  
-            // Add the data elements to the row
-            row.appendChild(Food)
-            row.appendChild(Price)
-            row.appendChild(View)
-            // Finally, add the row element to the table itself
-            mealTable.appendChild(row)
-          })
-        })
-    </script>
+    </div>
+
   </body>
 </html>
