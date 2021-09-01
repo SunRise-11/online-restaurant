@@ -1,3 +1,11 @@
-.imageStyle{
-    height:250px
+.foodImage img{
+        height: 110px;
+        width: 110px;
+        border-radius: 50%;
+}
+.flickity-button {
+    background: #e9ecef !important; 
+}
+.flickity-button:hover {
+    background: #f5a637 !important; 
 }
