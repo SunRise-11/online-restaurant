@@ -19,12 +19,14 @@ func (m *MockStore) CreateOrders(order *Order) error {
 	return rets.Error(0)
 }
 
+func (m *MockStore) DeleteOrders() error {
+
+	rets := m.Called()
+	return rets.Error(0)
+}
+
 func (m *MockStore) CreateCustomer(customer *Customer) error {
-	/*
-		When this method is called, `m.Called` records the call, and also
-		returns the result that we pass to it (which you will see in the
-		handler tests)
-	*/
+
 	rets := m.Called(customer)
 	return rets.Error(0)
 }
@@ -36,6 +38,16 @@ func (m *MockStore) GetMeals() ([]*Meal, error) {
 		we need to typecast it to the type we expect, which in this case is []*Meal
 	*/
 	return rets.Get(0).([]*Meal), rets.Error(1)
+}
+func (m *MockStore) GetOrders() ([]*Order, error) {
+	rets := m.Called()
+
+	return rets.Get(0).([]*Order), rets.Error(1)
+}
+func (m *MockStore) GetCustomer() ([]*Customer, error) {
+	rets := m.Called()
+
+	return rets.Get(0).([]*Customer), rets.Error(1)
 }
 
 func InitMockStore() *MockStore {
