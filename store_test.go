@@ -25,6 +25,7 @@ func (s *StoreSuite) SetupSuite() {
 		stored as an instance variable,
 		as is the higher level `store`, that wraps the `db`
 	*/
+	// connString := "host=Foodie-db user=postgres password=12345 dbname=Foodie sslmode=disable"
 	connString := "user=postgres password=12345 dbname=Foodie sslmode=disable"
 	db, err := sql.Open("postgres", connString)
 	if err != nil {
@@ -36,7 +37,7 @@ func (s *StoreSuite) SetupSuite() {
 
 func (s *StoreSuite) SetupTest() {
 	/*
-		We delete all entries from the table before each test runs, to ensure a
+		We delete all entries from the tables before each test runs, to ensure a
 		consistent state before our tests run. In more complex applications, this
 		is sometimes achieved in the form of migrations
 	*/
@@ -88,13 +89,17 @@ func (s *StoreSuite) TestCreateMeal() {
 	}
 }
 func (s *StoreSuite) TestCreateOrders() {
-	// Create a meal through the store `CreateMeal` method
+	// Create an order through the store `CreateOrder` method
 	s.store.CreateOrders(&Order{
-		OrderedMeal: "foodName",
+		Meal:   "Jollof Rice",
+		Price:  10,
+		Image:  "JollofRice.jpeg",
+		Plates: 5,
 	})
 
 	// Query the database for the entry we just created
-	res, err := s.db.Query(`SELECT COUNT(*) FROM orders WHERE OrderedMeal='foodName' `)
+	res, err := s.db.Query(`SELECT COUNT(*) FROM orders WHERE Meal='Jollof Rice' AND Price=10 AND Image='JollofRice.jpeg' AND Plates=5`)
+
 	if err != nil {
 		s.T().Fatal(err)
 	}
@@ -114,14 +119,17 @@ func (s *StoreSuite) TestCreateOrders() {
 	}
 }
 func (s *StoreSuite) TestCreateCustomer() {
-	// Create a meal through the store `CreateMeal` method
+	// Create an order through the store `CreateCustomer` method
 	s.store.CreateCustomer(&Customer{
 		Name:    "customer",
 		Address: "address",
+		Plates:  4,
+		Meal:    "spaghetti",
+		Price:   22,
 	})
 
 	// Query the database for the entry we just created
-	res, err := s.db.Query(`SELECT COUNT(*) FROM customers WHERE Name='customer' AND Address= 'address' `)
+	res, err := s.db.Query(`SELECT COUNT(*) FROM customers WHERE customer_name='customer' AND location_address='address' AND plates=4 AND meal= 'spaghetti' AND price=22 `)
 	if err != nil {
 		s.T().Fatal(err)
 	}
@@ -164,5 +172,31 @@ func (s *StoreSuite) TestGetMeal() {
 	expectedMeal := Meal{"Yam", 10, "yam.jpg"}
 	if *meals[0] != expectedMeal {
 		s.T().Errorf("incorrect details, expected %v, got %v", expectedMeal, *meals[0])
+	}
+}
+func (s *StoreSuite) TestGetOrders() {
+	// Insert a sample order into the `orders` table
+	_, err := s.db.Query(`INSERT INTO orders (id,meal, price,image, plates) VALUES(7, 'Egg Rice', 5, 'eggrice.jpg', 5)`)
+
+	if err != nil {
+		s.T().Fatal(err)
+	}
+
+	// Get the list of orders through the stores `GetOrders` method
+	order, err := s.store.GetOrders()
+	if err != nil {
+		s.T().Fatal(err)
+	}
+
+	// Assert that the count of order received must be 1
+	nOrders := len(order)
+	if nOrders != 1 {
+		s.T().Errorf("incorrect count, wanted 1, got %d", nOrders)
+	}
+
+	// Assert that the details of the order is the same as the one we inserted
+	expectedOrder := Order{7, "Egg Rice", 5, "eggrice.jpg", 5}
+	if *order[0] != expectedOrder {
+		s.T().Errorf("incorrect details, expected %v, got %v", expectedOrder, *order[0])
 	}
 }
