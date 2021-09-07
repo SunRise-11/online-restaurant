@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+
+ <title>Checkout</title>
+</head>
+
+<body>
+  <h1>Confirm Order</h1>
+  <div>
+    <form action="/customer" method="post">
+      <table>
+        <tr>
+          <th>Id</th>
+          <th>Meal</th>
+          <th>Price</th>
+          <th>Image</th>
+          <th>Plates</th>
+        </tr>
+
+      {{range .Orders}}
+        <tr class="mealRow">
+          <td class="Plates"> {{.ID}} </td>
+          <td class="Plates"> {{.Meal}} </td>
+          <td class="Price"> ${{.Price}}</td>
+          <td > 
+            <img class="" src="/static/images/{{.Image}}" alt="">
+          </td>
+          <td> {{.Plates}} </td>
+        </tr>
+      {{end}}
+      </table>
+    
+   
+      
+      Name:
+      <input type="text" name="customer" required>
+      <br/> 
+      Delivery Address
+      <input type="text" name="address" required>
+      <br/>
+      {{range .Orders}}
+      <input type="hidden" name="meal" value="{{.Meal}}">
+      <input type="hidden" name="price" value="{{.Price}}">
+      <input type="hidden" name="plates" value="{{.Plates}}">
+      {{end}}
+      <input type="submit" value="Submit">
+
+    </form>
+  </div>
+
+   <!-- Local JS -->
+   <!-- <script src="./static/js/form.js"></script> -->
+</body>
+
+</html>
