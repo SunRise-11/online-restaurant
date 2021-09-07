@@ -1,9 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"net/http"
+	"strconv"
 )
 
 type Meal struct {
@@ -12,11 +14,19 @@ type Meal struct {
 	Image string `json:"imagelink"`
 }
 type Order struct {
-	OrderedMeal string `json:"foodName"`
+	ID     int    `json:"id"`
+	Meal   string `json:"foodName"`
+	Price  int    `json:"price"`
+	Image  string `json:"image"`
+	Plates int    `json:"plateNumbers"`
 }
+
 type Customer struct {
 	Name    string `json:"customer"`
 	Address string `json:"address"`
+	Plates  int    `json:"plateNumbers"`
+	Meal    string `json:"foodName"`
+	Price   int    `json:"price"`
 }
 
 func getMealHandler(w http.ResponseWriter, r *http.Request) {
@@ -24,14 +34,6 @@ func getMealHandler(w http.ResponseWriter, r *http.Request) {
 	meal, err := store.GetMeals()
 	if err != nil {
 		fmt.Println(err)
-	}
-
-	// If there is an error, print it to the console, and return a server
-	// error response to the user
-	if err != nil {
-		fmt.Println(fmt.Errorf("error: %v", err))
-		w.WriteHeader(http.StatusInternalServerError)
-		return
 	}
 
 	// tmpl := template.New("./static/homepage.html")
@@ -62,8 +64,20 @@ func createOrderHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Get the information about the ordered meal from the form info
-	order.OrderedMeal = r.Form.Get("foodName")
-	// order.Image = r.Form.Get("imagelink")
+	order.Meal = r.Form.Get("meal")
+	order.Price, err = strconv.Atoi(r.Form.Get("price"))
+	if err != nil {
+		fmt.Println(fmt.Errorf("error: %v", err))
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	order.Image = r.Form.Get("image")
+	order.Plates, err = strconv.Atoi(r.Form.Get("PlateNumbers"))
+	if err != nil {
+		fmt.Println(fmt.Errorf("error: %v", err))
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 
 	err = store.CreateOrders(&order)
 	if err != nil {
@@ -72,7 +86,48 @@ func createOrderHandler(w http.ResponseWriter, r *http.Request) {
 
 	//Finally, we redirect the user to the original HTMl page
 	// (located at `/static/`), using the http libraries `Redirect` method
-	http.Redirect(w, r, "/static/", http.StatusFound)
+	http.Redirect(w, r, "/static/order.html", http.StatusFound)
+}
+
+func getOrderHandler(w http.ResponseWriter, r *http.Request) {
+
+	order, err := store.GetOrders()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	tmpl := template.Must(template.New("").ParseFiles("./static/checkout.html"))
+
+	context := struct{ Orders []*Order }{order}
+
+	err = tmpl.ExecuteTemplate(w, "checkout.html", context)
+
+	if err != nil {
+		fmt.Println(fmt.Errorf("error: %v", err))
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+}
+func getCustomerHandler(w http.ResponseWriter, r *http.Request) {
+
+	customer, err := store.GetCustomer()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	tmpl := template.Must(template.New("").ParseFiles("./static/tester.html"))
+
+	context := struct{ Customers []*Customer }{customer}
+
+	err = tmpl.ExecuteTemplate(w, "tester.html", context)
+
+	if err != nil {
+		fmt.Println(fmt.Errorf("error: %v", err))
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
 }
 
 func CustomerInfoHandler(w http.ResponseWriter, r *http.Request) {
@@ -88,15 +143,71 @@ func CustomerInfoHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Get the information about the customer from the form info
-	customer.Name = r.Form.Get("user")
+	customer.Name = r.Form.Get("customer")
 	customer.Address = r.Form.Get("address")
+	customer.Meal = r.Form.Get("meal")
+	customer.Price, err = strconv.Atoi(r.Form.Get("price"))
+	if err != nil {
+		fmt.Println(fmt.Errorf("error: %v", err))
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	customer.Plates, err = strconv.Atoi(r.Form.Get("plates"))
+	if err != nil {
+		fmt.Println(fmt.Errorf("error: %v", err))
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 
 	err = store.CreateCustomer(&customer)
 	if err != nil {
+		fmt.Println(err)
+	}
+	err1 := store.DeleteOrders()
+	if err1 != nil {
 		fmt.Println(err)
 	}
 
 	//Finally, we redirect the user to the original HTMl page
 	// (located at `/static/`), using the http libraries `Redirect` method
 	http.Redirect(w, r, "/static/", http.StatusFound)
+}
+
+// mockstore handlers
+func mockGetMealHandler(w http.ResponseWriter, r *http.Request) {
+
+	meal, err := store.GetMeals()
+	if err != nil {
+		fmt.Println(err)
+	}
+	// Convert to json data for mock test
+	MealBytes, err := json.Marshal(meal)
+	// If there is an error, print it to the console, and return a server
+	// error response to the user
+	if err != nil {
+		fmt.Println(fmt.Errorf("error: %v", err))
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	w.Write(MealBytes)
+}
+
+func mockGetOrderHandler(w http.ResponseWriter, r *http.Request) {
+
+	order, err := store.GetOrders()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// Convert to json data for mock test
+	OrderBytes, err := json.Marshal(order)
+	// If there is an error, print it to the console, and return a server
+	// error response to the user
+	if err != nil {
+		fmt.Println(fmt.Errorf("error: %v", err))
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	w.Write(OrderBytes)
+
 }
