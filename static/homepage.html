@@ -64,7 +64,7 @@
           <!-- Navbar nav -->
           <ul class="navbar-nav">
           	<li class="nav-item">
-              <a class="nav-link " href="./menu.html">Menu</a>
+              <a class="nav-link " href="#menuContent">Menu</a>
             </li>
             <li class="nav-item">
               <a class="nav-link " href="./about-us.html">About Us</a>
@@ -93,13 +93,16 @@
               </h1>
 
               <!-- Subheading -->
+              <p class="text-center text-white-75">
+                A one of it's kind online restaurant serving the biggest city in Nigeria.
+              </p>
               <p class="text-center text-white-75 mb-7">
-                A one of it's kind online restaurant located in the biggest city in Nigeria. Always open for orders.
+                We are always open for orders.
               </p>
 
               <!-- Button -->
-              <a class="btn btn-outline-primary text-white text-primary-hover mb-7 mb-md-0" href="#reservation">
-                Make order
+              <a class="btn btn-outline-primary text-white text-primary-hover mb-7 mb-md-0" href="#menuContent">
+                ENTER
               </a>
 
             </div>
@@ -167,42 +170,69 @@
             <div class="tab-content" id="menuContent">
               <div class="tab-pane fade show active" id="mains" role="tabpanel" aria-labelledby="mainsTab">
                 <div class="row">
+
+                  
                   {{range .Meals}}
-                    <div class="col-12 col-md-6">
-                        <div class="py-3 border-bottom">
-                          <div class="row">
-                            <div class="col-3 align-self-center">
+                      <div class="col-12 col-md-6">
+                          <div class="py-3 border-bottom">
+                            <div class="row">
+                              <div class="col-3 align-self-center">
 
-                              <!-- Image -->
-                              <div class="ratio ratio-1x1">
-                                <img class="object-fit-cover" src="/static/images/{{.Image}}" alt="...">
+                                <!-- Image -->
+                                <div class="ratio ratio-1x1">
+                                  <img class="object-fit-cover" src="/static/images/{{.Image}}" alt="...">
+                                </div>
+
                               </div>
+                              <div class="col-7">
 
-                            </div>
-                            <div class="col-7">
+                                <!-- Heading -->
+                                <h5 class="mb-2">{{.Food}}</h5>
 
-                              <!-- Heading -->
-                              <h5 class="mb-2">{{.Food}}</h5>
+                                <!-- Text -->
+                                <div class="mb-0">
+                                  <!-- order meal -->
 
-                              <!-- Text -->
-                              <p class="mb-0">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi, obcaecati! Sapiente laudantium.
-                              </p>
+                                  <form action="/order" method="post">
+                                      <input type="hidden" name="meal" value="{{.Food}}">
+                                      <input type="hidden" name="price" value="{{.Price}}">
+                                      <input type="hidden" name="image" value="{{.Image}}">
+                                      <div class="buttons">
+                                          <button id ="formSubmit" class="btn" >Order</button>
+                                      </div>
+                                      <!-- pick quantity -->
+                                      <label for="quantity">Number of plates</label>
+                                      <select id="quantity" class="Plates" name="PlateNumbers">
+                                          <option class="" value="1" name="">1</option>
+                                          <option class="" value="2" name="">2</option>
+                                          <option class="" value="3" name="">3</option>
+                                          <option class="" value="4" name="">4</option>
+                                          <option class="" value="5" name="">5</option>
+                                          <option class="" value="6" name="">6</option>
+                                          <option class="" value="7" name="">7</option>
+                                          <option class="" value="8" name="">8</option>
+                                          <option class="" value="9" name="">9</option>
+                                          <option class="" value="10" name="">10</option>
+                                      </select>
+                                  </form>
+                                </div>
+                              
 
-                            </div>
-                            <div class="col-2">
-
-                              <!-- Price -->
-                              <div class="fs-4 font-serif text-center text-black">
-                                ${{.Price}}
                               </div>
+                              <div class="col-2">
 
+                                <!-- Price -->
+                                <div class="fs-4 font-serif text-center text-black">
+                                  ${{.Price}}
+                                </div>
+
+                              </div>
                             </div>
                           </div>
-                        </div>
                     </div>
+                    
                   {{end}}
-
+                 
                 </div>
               </div>
             </div>
@@ -407,13 +437,16 @@
 
     <!-- JAVASCRIPT -->
     <!-- Vendor JS -->
-    <script src="./js/vendor.bundle.js"></script>
+    <script src="./static/js/vendor.bundle.js"></script>
     
     <!-- Theme JS -->
-    <script src="./js/theme.bundle.js"></script>
+    <script src="./static/js/theme.bundle.js"></script>
 
     <!-- Theme JS -->
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+    <!-- Local JS -->
+    <!-- <script src="./static/js/form.js"></script> -->
 
   </body>
 </html>
