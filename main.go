@@ -33,8 +33,11 @@ func newRouter() *mux.Router {
 
 	// database query functions
 	r.HandleFunc("/meal", getMealHandler).Methods("GET")
-	r.HandleFunc("/meal", createOrderHandler).Methods("POST")
+	r.HandleFunc("/order", createOrderHandler).Methods("POST")
+	r.HandleFunc("/checkout", getOrderHandler).Methods("GET")
 	r.HandleFunc("/customer", CustomerInfoHandler).Methods("POST")
+	r.HandleFunc("/tester", getCustomerHandler).Methods("GET")
+	r.HandleFunc("/tester", getCustomerHandler).Methods("GET")
 
 	//serve static files
 	staticFileDirectory := http.Dir("./static")
