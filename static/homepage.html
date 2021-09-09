@@ -96,8 +96,11 @@
               <p class="text-center text-white-75">
                 A one of it's kind online restaurant serving the biggest city in Nigeria.
               </p>
-              <p class="text-center text-white-75 mb-7">
+              <p class="text-center text-white-75 mb-2">
                 We are always open for orders.
+              </p>
+              <p class="text-center text-white-75 mb-3">
+                Pay on Delivery option available.
               </p>
 
               <!-- Button -->
@@ -176,23 +179,21 @@
                       <div class="col-12 col-md-6">
                           <div class="py-3 border-bottom">
                             <div class="row">
+                              
                               <div class="col-3 align-self-center">
-
                                 <!-- Image -->
                                 <div class="ratio ratio-1x1">
                                   <img class="object-fit-cover" src="/static/images/{{.Image}}" alt="...">
                                 </div>
-
                               </div>
-                              <div class="col-7">
 
+                              <div class="col-7">
                                 <!-- Heading -->
                                 <h5 class="mb-2">{{.Food}}</h5>
 
                                 <!-- Text -->
                                 <div class="mb-0">
                                   <!-- order meal -->
-
                                   <form action="/order" method="post">
                                       <input type="hidden" name="meal" value="{{.Food}}">
                                       <input type="hidden" name="price" value="{{.Price}}">
@@ -216,8 +217,6 @@
                                       </select>
                                   </form>
                                 </div>
-                              
-
                               </div>
                               <div class="col-2">
 
