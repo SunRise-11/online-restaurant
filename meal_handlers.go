@@ -165,12 +165,58 @@ func CustomerInfoHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	err1 := store.DeleteOrders()
 	if err1 != nil {
-		fmt.Println(err)
+		fmt.Println(err1)
 	}
 
 	//Finally, we redirect the user to the original HTMl page
 	// (located at `/static/`), using the http libraries `Redirect` method
 	http.Redirect(w, r, "/static/", http.StatusFound)
+}
+
+func DeleteMealOrderHandler(w http.ResponseWriter, r *http.Request) {
+
+	err := r.ParseForm()
+
+	// In case of any error, we respond with an error to the user
+	if err != nil {
+		fmt.Println(fmt.Errorf("error: %v", err))
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	var id int
+
+	// Get the information about the meal to be deleted from the form info
+	id, err = strconv.Atoi(r.Form.Get("delete"))
+
+	if err != nil {
+		fmt.Println(fmt.Errorf("error: %v", err))
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	err1 := store.DeleteMealOrder(int64(id))
+	if err1 != nil {
+		fmt.Println(err1)
+	}
+
+	order, err := store.GetOrders()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	tmpl := template.Must(template.New("").ParseFiles("./static/checkout.html"))
+
+	context := struct{ Orders []*Order }{order}
+
+	err = tmpl.ExecuteTemplate(w, "checkout.html", context)
+
+	if err != nil {
+		fmt.Println(fmt.Errorf("error: %v", err))
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
 }
 
 // mockstore handlers
