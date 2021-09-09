@@ -25,6 +25,12 @@ func (m *MockStore) DeleteOrders() error {
 	return rets.Error(0)
 }
 
+func (m *MockStore) DeleteMealOrder(id int64) error {
+
+	rets := m.Called()
+	return rets.Error(0)
+}
+
 func (m *MockStore) CreateCustomer(customer *Customer) error {
 
 	rets := m.Called(customer)
