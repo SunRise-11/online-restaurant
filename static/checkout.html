@@ -1,58 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  
-
- <title>Checkout</title>
-</head>
-
-<body>
-  <h1>Confirm Order</h1>
-  <div>
-    <form action="/customer" method="post">
-      <table>
-        <tr>
-          <th>Id</th>
-          <th>Meal</th>
-          <th>Price</th>
-          <th>Image</th>
-          <th>Plates</th>
-        </tr>
-
-      {{range .Orders}}
-        <tr class="mealRow">
-          <td class="Plates"> {{.ID}} </td>
-          <td class="Plates"> {{.Meal}} </td>
-          <td class="Price"> ${{.Price}}</td>
-          <td > 
-            <img class="" src="/static/images/{{.Image}}" alt="">
-          </td>
-          <td> {{.Plates}} </td>
-        </tr>
-      {{end}}
-      </table>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     
-   
-      
-      Name:
-      <input type="text" name="customer" required>
-      <br/> 
-      Delivery Address
-      <input type="text" name="address" required>
-      <br/>
-      {{range .Orders}}
-      <input type="hidden" name="meal" value="{{.Meal}}">
-      <input type="hidden" name="price" value="{{.Price}}">
-      <input type="hidden" name="plates" value="{{.Plates}}">
-      {{end}}
-      <input type="submit" value="Submit">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="./assets/favicon/manifest.json">
+    <link rel="mask-icon" href="./assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="./assets/favicon/favicon.ico">
 
-    </form>
-  </div>
+    <!-- Fontawesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
 
-   <!-- Local JS -->
-   <!-- <script src="./static/js/form.js"></script> -->
-</body>
+    <meta name="msapplication-config" content="./assets/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="./static/stylesheets/libs.bundle.css" />
+    
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="./static/stylesheets/theme.bundle.css" />
 
+    <!-- local CSS -->
+    <link rel="stylesheet" type="text/css" href="./static/stylesheets/checkout.css">
+
+    <!-- flickity CSS -->
+	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    
+    <!-- Title -->
+    <title>Checkout</title>
+  </head>
+  <body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-light navbar-expand-lg  fixed-top">
+      <div class="container">
+    
+        <!-- Navbar brand (mobile) -->
+        <a class="navbar-brand" href="./static/homepage.html">Foodié</a>
+    
+        <!-- Navbar toggler -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <!-- Navbar collapse -->
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+    
+          <!-- Navbar brand -->
+          <!-- <a class="navbar-brand d-none d-lg-flex mx-lg-auto" href="./index.html">
+            Touché
+          </a> -->
+
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link " href="#menuContent">Menu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="./about-us.html">About Us</a>
+            </li>
+          </ul>
+    
+        </div>
+      </div>
+    </nav>
+
+    <!-- ARTICLE -->
+    <article class="pt-10 pt-md-12">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-8 col-lg-6 text-center">
+
+            <!-- Preheading -->
+            <h6 class="text-xs text-primary">
+              CHECKOUT
+            </h6>
+
+            <!-- Heading -->
+            <h1 class="confirm-display mb-4">
+              Kindly confirm your order
+            </h1>
+
+            <!-- Subheading -->
+            <p class="mb-6">
+              Want more? Add to your tray
+            </p>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+
+            <!-- Image -->
+            <figure class="mb-6 text-center">
+              <img class="img-fluid" src="assets/img/38.jpg" alt="...">
+            </figure>
+
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-10 col-lg-8">
+
+            <!-- DELETE ORDER FORM-->
+              {{if .Orders}}
+                <table>
+                  <tr>
+                      <th>Id</th>
+                      <th>Meal</th>
+                      <th>Price</th>
+                      <th>Image</th>
+                      <th>Plates</th>
+                  </tr>
+                  </table>
+              {{else}}
+                  <p> Your tray is empty</p>
+                  <p> You have not added any meal to your tray</p>
+              {{end}}
+                
+              {{range .Orders}}
+                  {{if gt .ID 0}}
+                    <form action="/checkout" method="post">
+                      <table>
+                        <tr class="mealRow">
+                            <td class="Plates"> 
+                                <button>
+                                    Delete
+                                </button>
+                            </td>
+                            <td class="Plates"> {{.Meal}} </td>
+                            <td class="Price"> ${{.Price}}</td>
+                            <td > 
+                              <img class="" src="/static/images/{{.Image}}" alt="">
+                            </td>
+                            <td> {{.Plates}} </td>
+                        </tr>
+                        <input type="hidden" name="delete" value="{{.ID}}">
+                      </table>
+                    </form>
+                  {{end}}
+                {{end}} 
+
+            <!-- Divider -->
+            <hr class="mt-6 mt-md-9 mb-0" />
+
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- CUSTOMER DETAILS -->
+    <section class="py-7 py-md-9 bg-light" id="details">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-8 col-lg-6 text-center">
+
+            <!-- Heading -->
+            <h2 class="mb-2">
+              Kindly Provide your details
+            </h2>
+          </div>
+        </div>
+        <div class="row justify-content-lg-center">
+          <div class="col-lg-8">
+
+
+
+            <!-- CUSTOMER DETAILS FORM-->
+            <form action="/customer" method="post" id="reservationForm">
+              <div class="row gx-3">
+                <div class="col-md-12 mb-2">
+
+                  <!-- Full name -->
+                  <div class="mb-3">
+                    <label class="visually-hidden" for="user_name">Full name</label>
+                    <input class="form-control" id="user_name" name="customer" type="text" placeholder="Full name" required="">
+                  </div>
+
+                  <!-- Phone number -->
+                  <div class="mb-3">
+                    <label class="visually-hidden" for="user_phone">Phone number</label>
+                    <input class="form-control" id="user_phone" name="user_phone" type="tel" placeholder="Phone number" required="">
+                  </div>
+
+                  <!-- Customer Address -->
+                  <div class="mb-3">
+                    <label class="visually-hidden" for="address">Delivery address</label>
+                    <input class="form-control" id="address" name="address" type="text" placeholder="Kindly provide a delivery address" required="">
+                  </div>
+                </div>
+
+                {{range .Orders}}
+                  <input type="hidden" name="meal" value="{{.Meal}}">
+                  <input type="hidden" name="price" value="{{.Price}}">
+                  <input type="hidden" name="plates" value="{{.Plates}}">
+                {{end}}
+                
+                <div class="col text-center">
+
+                  <!-- Button -->
+                  <button class="btn btn-outline-primary" type="submit">
+                    Complete Order
+                  </button>
+
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-7 py-md-9 bg-black">
+      <div class="container px-4">
+        <div class="row gx-7">
+          <div class="col-sm-4">
+    
+            <!-- Heading -->
+            <h5 class="text-xs text-primary">
+              About Us
+            </h5>
+    
+            <!-- Text -->
+            <p class="mb-6">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti dolorum, sint corporis nostrum, possimus unde eos vitae eius quasi saepe.
+            </p>
+    
+          </div>
+          <div class="col-sm-4">
+    
+            <!-- Heading -->
+            <h5 class="text-xs text-primary">
+              Contact info
+            </h5>
+    
+            <!-- List -->
+            <ul class="list-unstyled mb-6">
+              <li class="d-flex mb-2">
+                <div class="fas fa-map-marker-alt me-3 mt-2 fs-sm"></div>
+                Lagos, Nigeria
+              </li>
+              <li class="d-flex mb-2">
+                <div class="fas fa-phone me-3 mt-2 fs-sm"></div>
+                +2348183262469
+              </li>
+              <li class="d-flex">
+                <div class="far fa-envelope me-3 mt-2 fs-sm"></div> <a href="mailto:admin@domain.com">admin@domain.com</a>
+              </li>
+            </ul>
+    
+          </div>
+          <div class="col-sm-4">
+    
+            <!-- Heading -->
+            <h5 class="text-xs text-primary">
+              Opening hours
+            </h5>
+
+            <!-- Text -->
+            <div class="mb-3">
+              <div class="text-xs">KINDLY MAKE YOUR ORDERS EARLY</div>
+            </div>
+    
+            <!-- Text -->
+            <div class="mb-3">
+              <div class="text-xs">Monday - Thursday</div>
+              <div class="font-serif">8:00 AM - 1:00 PM</div>
+            </div>
+    
+            <!-- Text -->
+            <div class="mb-6">
+              <div class="text-xs">Friday - Sunday</div>
+              <div class="font-serif">8:00 AM - 05:00 PM</div>
+            </div>
+    
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+    
+            <!-- Copyright -->
+            <div class="d-flex align-items-center">
+              <hr class="hr-sm me-3" style="height: 1px;" /> &copy; 2021 Foodié. All rights reserved.
+            </div>
+    
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- TOAST -->
+    <div class="toast position-fixed bottom-0 start-50 translate-middle-x mb-3 mb-md-5" id="notification" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body mx-auto"></div>
+      </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <!-- Vendor JS -->
+    <script src="./assets/js/vendor.bundle.js"></script>
+    
+    <!-- Theme JS -->
+    <script src="./assets/js/theme.bundle.js"></script>
+
+  </body>
 </html>
