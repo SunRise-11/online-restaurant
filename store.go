@@ -15,6 +15,7 @@ type Store interface {
 	GetOrders() ([]*Order, error)
 	GetCustomer() ([]*Customer, error)
 	DeleteOrders() error
+	DeleteMealOrder(id int64) error
 }
 
 // The `dbStore` struct will implement the `Store` interface
@@ -63,6 +64,13 @@ func (store *dbStore) DeleteOrders() error {
 	// Delete meal orders after checkout
 
 	_, err1 := store.db.Query("DELETE FROM orders")
+
+	return err1
+}
+func (store *dbStore) DeleteMealOrder(id int64) error {
+	// Delete meal if user is no longer interested on checkout page
+
+	_, err1 := store.db.Query("DELETE FROM orders WHERE id = $1", id)
 	return err1
 }
 
