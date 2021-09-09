@@ -37,7 +37,7 @@ func newRouter() *mux.Router {
 	r.HandleFunc("/checkout", getOrderHandler).Methods("GET")
 	r.HandleFunc("/customer", CustomerInfoHandler).Methods("POST")
 	r.HandleFunc("/tester", getCustomerHandler).Methods("GET")
-	r.HandleFunc("/tester", getCustomerHandler).Methods("GET")
+	r.HandleFunc("/checkout", DeleteMealOrderHandler).Methods("POST")
 
 	//serve static files
 	staticFileDirectory := http.Dir("./static")
