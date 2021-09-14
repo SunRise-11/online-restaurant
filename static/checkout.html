@@ -45,7 +45,7 @@
       <div class="container">
     
         <!-- Navbar brand (mobile) -->
-        <a class="navbar-brand" href="./static/homepage.html">Foodié</a>
+        <a class="navbar-brand" href="/meal">Foodié</a>
     
         <!-- Navbar toggler -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,10 +62,10 @@
 
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link " href="#menuContent">Menu</a>
+              <a class="nav-link " href="/meal#menuContent">Menu</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link " href="./about-us.html">About Us</a>
+              <a class="nav-link " href="#about">About Us</a>
             </li>
           </ul>
     
@@ -74,12 +74,13 @@
     </nav>
 
     <!-- ARTICLE -->
-    <article class="pt-10 pt-md-12">
+    <article class="pt-10">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-12 col-md-8 col-lg-6 text-center">
 
             <!-- Preheading -->
+            {{if .Orders}}
             <h6 class="text-xs text-primary">
               CHECKOUT
             </h6>
@@ -88,79 +89,153 @@
             <h1 class="confirm-display mb-4">
               Kindly confirm your order
             </h1>
-
-            <!-- Subheading -->
-            <p class="mb-6">
-              Want more? Add to your tray
-            </p>
+            {{else}}
+            <h2 class="text-xs checkout text-primary">
+              CHECKOUT
+            </h2>
+            {{end}}
 
           </div>
         </div>
         <div class="row">
           <div class="col-12">
 
-            <!-- Image -->
-            <figure class="mb-6 text-center">
-              <img class="img-fluid" src="assets/img/38.jpg" alt="...">
-            </figure>
-
           </div>
         </div>
-        <div class="row justify-content-center">
-          <div class="col-12 col-md-10 col-lg-8">
 
-            <!-- DELETE ORDER FORM-->
-              {{if .Orders}}
-                <table>
-                  <tr>
-                      <th>Id</th>
-                      <th>Meal</th>
-                      <th>Price</th>
-                      <th>Image</th>
-                      <th>Plates</th>
-                  </tr>
-                  </table>
-              {{else}}
-                  <p> Your tray is empty</p>
-                  <p> You have not added any meal to your tray</p>
-              {{end}}
-                
-              {{range .Orders}}
+        <div class="row justify-content-center">
+          <div class="col-12">
+            <div class="cover">
+              <div class="main">
+                {{if .Orders}}
+                  <div class="header">
+                    <div class="c1">
+                      <span>Meal</span>
+                    </div>
+                    <div class="c2">
+                      <span>Plates </span><span>Price </span>
+                    </div>
+                    <div class="c3">
+                      <span>Action</span>
+                    </div>
+                  </div>
+                {{else}}
+                <div class="empty-box">
+                  <div class="empty-box-1">
+                    <img class="mb-2" src="/static/images/Tray.jpeg" alt="">
+                    <h3> Your tray is empty.</h3>
+                    <p> You have not added any meal to your tray.</p>
+                  </div>
+                </div>
+                {{end}}
+          
+                {{range .Orders}}
                   {{if gt .ID 0}}
-                    <form action="/checkout" method="post">
-                      <table>
-                        <tr class="mealRow">
-                            <td class="Plates"> 
-                                <button>
-                                    Delete
-                                </button>
-                            </td>
-                            <td class="Plates"> {{.Meal}} </td>
-                            <td class="Price"> ${{.Price}}</td>
-                            <td > 
-                              <img class="" src="/static/images/{{.Image}}" alt="">
-                            </td>
-                            <td> {{.Plates}} </td>
-                        </tr>
-                        <input type="hidden" name="delete" value="{{.ID}}">
-                      </table>
-                    </form>
+                      <div class="content" id="js-cart-items-wrapper">
+                                  <div class="content-1">
+                                      <div class="content-2">
+                                        <div class="meal">
+                                          <div>
+                                            <div class="meal-1">
+                                              <p class="meal-img">
+                                                <picture>
+                                                  <img data-expand="100" class="mealy" src="/static/images/{{.Image}}">
+                                                </picture>
+                                              </p>
+                                              <div class="description">
+                                                <h3>
+                                                  <p>{{.Meal}}</p>
+                                                </h3>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="price">
+                                              <div>
+                                                <div class="plates">
+                                                  <div class="quantity">
+                                                    <span>{{.Plates}}</span>
+                                                  </div>
+                                                  <div class="">
+                                                    <p class="quantity-1">Plates:</p>
+                                                    <p>{{.Plates}}</p>
+                    
+                                                  </div>
+                                                </div>
+                                                <div class="prices">
+                                                  <h3 class="p-val">
+                                                    <span>$</span>{{.TotalCost}}
+                                                  </h3>
+                                                  <p class="tot-val">
+                                                    <span>
+                                                      <span class="tot">$</span>{{.Price}}
+                                                    </span> x {{.Plates}} plate(s)
+                                                  </p>
+                                                </div>
+                                              </div>
+                                        </div>
+
+                                        <!-- DELETE ORDER FORM-->
+                                        <div class="delete">
+                                            <form action="/checkout" method="POST">
+                                              <div class="del-btn">
+                                                <button name="delete" type="submit" value="{{.ID}}">
+                                                <span>Remove meal</span>
+                                                </button>
+                                              </div>
+                                            </form>
+                                        </div>
+                                      </div>
+                                  </div>
+                      </div>
                   {{end}}
-                {{end}} 
+                {{end}}
+                {{if .Orders}}
+                  <div class="header">
+                    <div class="c1">
+                      <span></span>
+                    </div>
+                    <div class="c2">
+                      <span>Total </span><span></span>
+                    </div>
+                    <div class="c3">
+                      <span id=footerprice>Action</span>
+                    </div>
+                  </div>
+                {{end}}
+
+                {{if .Orders}}
+                <div class="total-header">
+                  <div class="total-header-1">
+                    <h3>Total</h3>
+                    <span>
+                      <span style="margin-right:1px">$</span><span id="totalfoot"></span>
+                    </span>
+                  </div>
+                </div>
+                {{end}}
+              </div>
+            </div>
 
             <!-- Divider -->
-            <hr class="mt-6 mt-md-9 mb-0" />
+            <hr class="mt-0 mb-0" />
 
-          </div>
         </div>
+
+        </div>
+        <!-- Subheading -->
+          <p class="mb-3 mt-3 more">
+            {{if .Orders}}Want more?{{end}} <a href="/meal#menuContent">Add to your tray</a> 
+          </p>
       </div>
     </article>
 
     <!-- CUSTOMER DETAILS -->
-    <section class="py-7 py-md-9 bg-light" id="details">
+    {{if .Orders}}
+    <section class="pb-7 pt-5 py-md-9 bg-light" id="details">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-12 col-md-8 col-lg-6 text-center">
+          <div class="pb-3 col-12 col-md-8 col-lg-6 text-center">
 
             <!-- Heading -->
             <h2 class="mb-2">
@@ -171,9 +246,14 @@
         <div class="row justify-content-lg-center">
           <div class="col-lg-8">
 
-
+          <!-- Get meal and total cost -->
+          {{range .Orders}}
+            <input type="hidden" class="ordering" value="{{.Plates}} plate(s) of {{.Meal}}">
+            <input type="hidden" class="cost" value="{{.TotalCost}}">
+          {{end}}
 
             <!-- CUSTOMER DETAILS FORM-->
+            <!-- <form action="" method="" id="reservationForm"> -->
             <form action="/customer" method="post" id="reservationForm">
               <div class="row gx-3">
                 <div class="col-md-12 mb-2">
@@ -193,15 +273,12 @@
                   <!-- Customer Address -->
                   <div class="mb-3">
                     <label class="visually-hidden" for="address">Delivery address</label>
-                    <input class="form-control" id="address" name="address" type="text" placeholder="Kindly provide a delivery address" required="">
+                    <input class="form-control" id="address" name="address" type="text" placeholder="Delivery address" required="">
                   </div>
                 </div>
 
-                {{range .Orders}}
-                  <input type="hidden" name="meal" value="{{.Meal}}">
-                  <input type="hidden" name="price" value="{{.Price}}">
-                  <input type="hidden" name="plates" value="{{.Plates}}">
-                {{end}}
+                <input type="hidden" id="food" name="meal" value="">
+                <input type="hidden" id="total" name="total" value="">
                 
                 <div class="col text-center">
 
@@ -218,9 +295,10 @@
         </div>
       </div>
     </section>
-
+    {{end}}
+    
     <!-- FOOTER -->
-    <footer class="py-7 py-md-9 bg-black">
+    <footer id="about"  class="py-7 py-md-9 bg-black">
       <div class="container px-4">
         <div class="row gx-7">
           <div class="col-sm-4">
@@ -231,10 +309,12 @@
             </h5>
     
             <!-- Text -->
-            <p class="mb-6">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti dolorum, sint corporis nostrum, possimus unde eos vitae eius quasi saepe.
-            </p>
+            <p>
+              We are a first-choice online restaurant aiming to make mouthwatering and delicious meals available at the fingertips of the busiest people in the busiest city in Nigeria. With Foodie, you dont have to worry about food when you are in traffic or at the office.</p> 
+              We offer a pay on delivery service and our riders always deliver on time.</p>
+            <p class="mb-2">Go Foodie and you won’t ever look back.</p> 
     
+
           </div>
           <div class="col-sm-4">
     
@@ -251,7 +331,7 @@
               </li>
               <li class="d-flex mb-2">
                 <div class="fas fa-phone me-3 mt-2 fs-sm"></div>
-                +2348183262469
+                +2348180000000
               </li>
               <li class="d-flex">
                 <div class="far fa-envelope me-3 mt-2 fs-sm"></div> <a href="mailto:admin@domain.com">admin@domain.com</a>
@@ -306,11 +386,7 @@
     </div>
 
     <!-- JAVASCRIPT -->
-    <!-- Vendor JS -->
-    <script src="./assets/js/vendor.bundle.js"></script>
-    
-    <!-- Theme JS -->
-    <script src="./assets/js/theme.bundle.js"></script>
+    <script src="./static/js/form.js"></script>
 
   </body>
 </html>

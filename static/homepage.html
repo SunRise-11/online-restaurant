@@ -46,28 +46,30 @@
       <div class="container">
     
         <!-- Navbar brand (mobile) -->
-        <a class="navbar-brand" href="./static/homepage.html">Foodié</a>
+        <a class="navbar-brand" href="/meal">Foodié</a>
     
         <!-- Navbar toggler -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
+          <div class="cancel-btn">
+            <i class="fas fa-times"></i>
+          </div>
         </button>
+        
     
         <!-- Navbar collapse -->
         <div class="collapse navbar-collapse nav" id="navbarCollapse">
     
-          <!-- Navbar brand -->
-<!--           <a class="navbar-brand d-none d-lg-flex mx-lg-auto" href="./index.html">
-            Foodié
-          </a> -->
-    
           <!-- Navbar nav -->
           <ul class="navbar-nav">
           	<li class="nav-item">
-              <a class="nav-link " href="#menuContent">Menu</a>
+              <a class="nav-link " href="/meal#menuContent">Menu</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link " href="./about-us.html">About Us</a>
+              <a class="nav-link " href="/checkout">Checkout</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="#about">About Us</a>
             </li>
           </ul>
     
@@ -98,9 +100,6 @@
               </p>
               <p class="text-center text-white-75 mb-2">
                 We are always open for orders.
-              </p>
-              <p class="text-center text-white-75 mb-3">
-                Pay on Delivery option available.
               </p>
 
               <!-- Button -->
@@ -198,23 +197,27 @@
                                       <input type="hidden" name="meal" value="{{.Food}}">
                                       <input type="hidden" name="price" value="{{.Price}}">
                                       <input type="hidden" name="image" value="{{.Image}}">
-                                      <div class="buttons">
-                                          <button id ="formSubmit" class="btn" >Order</button>
-                                      </div>
                                       <!-- pick quantity -->
-                                      <label for="quantity">Number of plates</label>
-                                      <select id="quantity" class="Plates" name="PlateNumbers">
-                                          <option class="" value="1" name="">1</option>
-                                          <option class="" value="2" name="">2</option>
-                                          <option class="" value="3" name="">3</option>
-                                          <option class="" value="4" name="">4</option>
-                                          <option class="" value="5" name="">5</option>
-                                          <option class="" value="6" name="">6</option>
-                                          <option class="" value="7" name="">7</option>
-                                          <option class="" value="8" name="">8</option>
-                                          <option class="" value="9" name="">9</option>
-                                          <option class="" value="10" name="">10</option>
-                                      </select>
+                                      <div class="selection">
+                                        <label for="quantity">Number of plates</label>
+                                        <select id="quantity" class="Plates" name="PlateNumbers">
+                                            <option class="" value="1" name="">1</option>
+                                            <option class="" value="2" name="">2</option>
+                                            <option class="" value="3" name="">3</option>
+                                            <option class="" value="4" name="">4</option>
+                                            <option class="" value="5" name="">5</option>
+                                            <option class="" value="6" name="">6</option>
+                                            <option class="" value="7" name="">7</option>
+                                            <option class="" value="8" name="">8</option>
+                                            <option class="" value="9" name="">9</option>
+                                            <option class="" value="10" name="">10</option>
+                                        </select>
+                                      </div>
+                                      <div class="buttons">
+                                        <button id ="formSubmit" class="btn order-btn btn-outline-primary text-primary-hover mt-2" >Order</button>
+                                      </div>
+                                 
+
                                   </form>
                                 </div>
                               </div>
@@ -249,12 +252,12 @@
 
             <!-- Heading -->
             <h2 class="mb-2">
-              What our clients say about us
+              What our customers say about us
             </h2>
 
             <!-- Subheading -->
             <p class="mb-6">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              Your satisfaction is our number one priority
             </p>
 
           </div>
@@ -269,7 +272,7 @@
                   <div class="col-8 col-md-3 order-md-1">
 
                     <!-- Avatar -->
-                    <img class="img-fluid rounded-circle mb-5 mb-md-0" src="./img/Faruq1.png" alt="..." />
+                    <img class="img-fluid rounded-circle mb-5 mb-md-0" src="./static/images/luffy.jpeg" alt="..." />
 
                   </div>
                   <div class="col-md-7 order-md-0">
@@ -278,11 +281,11 @@
                     <figure class="mx-auto mb-0" style="max-width: 500px;">
                       <blockquote class="blockquote mb-0">
                         <p class="font-serif text-black mb-5">
-                          I have to say, I enjoyed every single bite of the meal. I ordered for a 3 course meal, with a couple of beers. Considering the quality, the price is reasonable. 
+                          I have to say, I enjoyed every single bite of the meal. I ordered for Fried Rice together with Grilled Fish. Considering the quality, the price is very reasonable. 
                         </p>
                       </blockquote>
                       <figcaption class="blockquote-footer text-xs mb-0">
-                        Faruq
+                        Luffy
                       </figcaption>
                     </figure>
 
@@ -294,7 +297,7 @@
                   <div class="col-8 col-md-3 order-md-1">
 
                     <!-- Avatar -->
-                    <img class="img-fluid rounded-circle mb-5 mb-md-0" src="assets/img/21.jpg" alt="..." />
+                    <img class="img-fluid rounded-circle mb-5 mb-md-0" src="./static/images/ace.jpeg" alt="..." />
 
                   </div>
                   <div class="col-md-7 order-md-0">
@@ -303,11 +306,11 @@
                     <figure class="mx-auto mb-0" style="max-width: 500px;">
                       <blockquote class="blockquote mb-0">
                         <p class="font-serif text-black mb-5">
-                          Today I ordered 3 hyderabadi biriyani and two shawai, biriyani is very tasty. They were all delivered in well packed conditions. I will definitely patronize them again.
+                          Today I ordered 3 plates of spaghetti and two steaks, the ceasar salad was also very tasty. They were all delivered in well packed conditions. I will definitely patronize them again.
                         </p>
                       </blockquote>
                       <figcaption class="blockquote-footer text-xs mb-0">
-                        Faiiz
+                        Ace
                       </figcaption>
                     </figure>
 
@@ -319,7 +322,7 @@
                   <div class="col-8 col-md-3 order-md-1">
 
                     <!-- Avatar -->
-                    <img class="img-fluid rounded-circle mb-5 mb-md-0" src="assets/img/22.jpg" alt="..." />
+                    <img class="img-fluid rounded-circle mb-5 mb-md-0" src="./static/images/sabo.png" alt="..." />
 
                   </div>
                   <div class="col-md-7 order-md-0">
@@ -328,11 +331,11 @@
                     <figure class="mx-auto mb-0" style="max-width: 500px;">
                       <blockquote class="blockquote mb-0">
                         <p class="font-serif text-black mb-5">
-                          Delivery was fast. Ordered dinner with girl friends. Menu is perfect, something for everyone. 
+                          Delivery was fast. Ordered dinner with friends. Menu is perfect, something for everyone. 
                         </p>
                       </blockquote>
-                      <figcaption class="blockquote-footer text-xs mb-0">
-                        Yetunde
+                      <figcaption id="about" class="blockquote-footer text-xs mb-0">
+                        Sabo
                       </figcaption>
                     </figure>
 
@@ -343,7 +346,7 @@
 
           </div>
         </div>
-      </div>
+      </div >
     </section>
 
     <!-- FOOTER -->
@@ -358,9 +361,11 @@
             </h5>
     
             <!-- Text -->
-            <p class="mb-6">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti dolorum, sint corporis nostrum, possimus unde eos vitae eius quasi saepe.
-            </p>
+            <p>
+              We are a first-choice online restaurant aiming to make mouthwatering and delicious meals available at the fingertips of the busiest people in the busiest city in Nigeria. With Foodie, you dont have to worry about food when you are in traffic or at the office.</p> 
+              We offer a pay on delivery service and our riders always deliver on time.</p>
+            <p>Go Foodie and you wont ever go back.</p> 
+           
     
           </div>
           <div class="col-sm-4">
@@ -435,6 +440,10 @@
     </div>
 
     <!-- JAVASCRIPT -->
+
+     <!-- Local JS -->
+     <script src="./static/js/navbar.js"></script>
+
     <!-- Vendor JS -->
     <script src="./static/js/vendor.bundle.js"></script>
     
@@ -444,8 +453,7 @@
     <!-- Theme JS -->
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 
-    <!-- Local JS -->
-    <!-- <script src="./static/js/form.js"></script> -->
+   
 
   </body>
 </html>
