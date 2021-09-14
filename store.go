@@ -41,22 +41,20 @@ func (store *dbStore) CreateOrders(orders *Order) error {
 	// and the error will be populated if it wasn't
 
 	var id int64
-	err := store.db.QueryRow("INSERT INTO orders(meal,price,image,plates) VALUES ($1,$2,$3,$4)RETURNING id", orders.Meal, orders.Price, orders.Image, orders.Plates).Scan(&id)
+	err := store.db.QueryRow("INSERT INTO orders(meal,price,image,plates,totalcost) VALUES ($1,$2,$3,$4,$5)RETURNING id", orders.Meal, orders.Price, orders.Image, orders.Plates, orders.TotalCost).Scan(&id)
 
 	if err != nil {
 		fmt.Println(fmt.Errorf("unable to execute the query: %v", err))
 	}
-
-	fmt.Printf("Inserted a single record %v", id)
 
 	// return the inserted id
 	return err
 }
 
 func (store *dbStore) CreateCustomer(customer *Customer) error {
-	// 'Customer' is a simple struct which has "Name","Address","Plates","Meal" and "Price" attributes
+	// 'Customer' is a simple struct which has "Name","Address","Meal" and "Total cost" attributes
 
-	_, err := store.db.Query("INSERT INTO customers(customer_name,location_address,plates,meal,price) VALUES ($1,$2,$3,$4,$5)", customer.Name, customer.Address, customer.Plates, customer.Meal, customer.Price)
+	_, err := store.db.Query("INSERT INTO customers(customer_name,location_address,meal,totalcost) VALUES ($1,$2,$3,$4)", customer.Name, customer.Address, customer.Meal, customer.TotalCost)
 	return err
 
 }
@@ -104,7 +102,7 @@ func (store *dbStore) GetMeals() ([]*Meal, error) {
 func (store *dbStore) GetOrders() ([]*Order, error) {
 	// Query the database for the order, and return the result to the
 	// `rows` object
-	rows, err := store.db.Query("SELECT id,meal,price,image,plates from orders")
+	rows, err := store.db.Query("SELECT id,meal,price,image,plates,totalcost from orders")
 
 	// We return incase of an error, and defer the closing of the row structure
 	if err != nil {
@@ -120,7 +118,7 @@ func (store *dbStore) GetOrders() ([]*Order, error) {
 		order := &Order{}
 		// Populate the `ordered meal` and `number of plates` attributes of the meal,
 		// and return incase of an error
-		if err := rows.Scan(&order.ID, &order.Meal, &order.Price, &order.Image, &order.Plates); err != nil {
+		if err := rows.Scan(&order.ID, &order.Meal, &order.Price, &order.Image, &order.Plates, &order.TotalCost); err != nil {
 			return nil, err
 		}
 		// Finally, append the result to the returned array, and repeat for
@@ -132,7 +130,7 @@ func (store *dbStore) GetOrders() ([]*Order, error) {
 func (store *dbStore) GetCustomer() ([]*Customer, error) {
 	// Query the database for the order, and return the result to the
 	// `rows` object
-	rows, err := store.db.Query("SELECT customer_name, location_address,plates,meal,price from customers")
+	rows, err := store.db.Query("SELECT customer_name,location_address,meal,totalcost from customers")
 	// We return incase of an error, and defer the closing of the row structure
 	if err != nil {
 		return nil, err
@@ -147,7 +145,7 @@ func (store *dbStore) GetCustomer() ([]*Customer, error) {
 		customer := &Customer{}
 		// Populate the `ordered meal` and `number of plates` attributes of the meal,
 		// and return incase of an error
-		if err := rows.Scan(&customer.Name, &customer.Address, &customer.Plates, &customer.Meal, &customer.Price); err != nil {
+		if err := rows.Scan(&customer.Name, &customer.Address, &customer.Meal, &customer.TotalCost); err != nil {
 			return nil, err
 		}
 		// Finally, append the result to the returned array, and repeat for
