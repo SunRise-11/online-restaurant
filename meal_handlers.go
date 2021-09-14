@@ -14,19 +14,18 @@ type Meal struct {
 	Image string `json:"imagelink"`
 }
 type Order struct {
-	ID     int    `json:"id"`
-	Meal   string `json:"foodName"`
-	Price  int    `json:"price"`
-	Image  string `json:"image"`
-	Plates int    `json:"plateNumbers"`
+	ID        int    `json:"id"`
+	Meal      string `json:"foodName"`
+	Price     int    `json:"price"`
+	Image     string `json:"image"`
+	Plates    int    `json:"plateNumbers"`
+	TotalCost int    `json:"Total"`
 }
-
 type Customer struct {
-	Name    string `json:"customer"`
-	Address string `json:"address"`
-	Plates  int    `json:"plateNumbers"`
-	Meal    string `json:"foodName"`
-	Price   int    `json:"price"`
+	Name      string `json:"customer"`
+	Address   string `json:"address"`
+	Meal      string `json:"foodName"`
+	TotalCost int    `json:"Total"`
 }
 
 func getMealHandler(w http.ResponseWriter, r *http.Request) {
@@ -78,6 +77,8 @@ func createOrderHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+	// Get total cost of meal
+	order.TotalCost = order.Price * order.Plates
 
 	err = store.CreateOrders(&order)
 	if err != nil {
@@ -146,13 +147,7 @@ func CustomerInfoHandler(w http.ResponseWriter, r *http.Request) {
 	customer.Name = r.Form.Get("customer")
 	customer.Address = r.Form.Get("address")
 	customer.Meal = r.Form.Get("meal")
-	customer.Price, err = strconv.Atoi(r.Form.Get("price"))
-	if err != nil {
-		fmt.Println(fmt.Errorf("error: %v", err))
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-	customer.Plates, err = strconv.Atoi(r.Form.Get("plates"))
+	customer.TotalCost, err = strconv.Atoi(r.Form.Get("total"))
 	if err != nil {
 		fmt.Println(fmt.Errorf("error: %v", err))
 		w.WriteHeader(http.StatusInternalServerError)
@@ -170,7 +165,7 @@ func CustomerInfoHandler(w http.ResponseWriter, r *http.Request) {
 
 	//Finally, we redirect the user to the original HTMl page
 	// (located at `/static/`), using the http libraries `Redirect` method
-	http.Redirect(w, r, "/static/", http.StatusFound)
+	http.Redirect(w, r, "/static/homepage", http.StatusFound)
 }
 
 func DeleteMealOrderHandler(w http.ResponseWriter, r *http.Request) {
