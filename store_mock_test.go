@@ -67,7 +67,7 @@ func TestGetOrdersHandler(t *testing.T) {
 	Also, we expect it to be called only once
 	*/
 	mockStore.On("GetOrders").Return([]*Order{
-		{1, "Spaghetti", 10, "spag.jpg", 5},
+		{1, "Spaghetti", 10, "spag.jpg", 5, 50},
 	}, nil).Once()
 
 	req, err := http.NewRequest("GET", "", nil)
@@ -88,7 +88,7 @@ func TestGetOrdersHandler(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := Order{1, "Spaghetti", 10, "spag.jpg", 5}
+	expected := Order{1, "Spaghetti", 10, "spag.jpg", 5, 50}
 	m := []Order{}
 	err = json.NewDecoder(recorder.Body).Decode(&m)
 
@@ -114,7 +114,7 @@ func TestCreateOrderHandler(t *testing.T) {
 	 We expect the first argument to the method to be the order struct
 	 defined below, and tell the mock to return a `nil` error
 	*/
-	mockStore.On("CreateOrders", &Order{0, "meatpizza", 5, "pizza.png", 5}).Return(nil)
+	mockStore.On("CreateOrders", &Order{0, "meatpizza", 5, "pizza.png", 5, 25}).Return(nil)
 
 	form := newCreateOrderForm()
 	req, err := http.NewRequest("POST", "", bytes.NewBufferString(form.Encode()))
@@ -146,7 +146,7 @@ func TestCreateCustomerInfoHandler(t *testing.T) {
 	 defined below, and tell the mock to return a `nil` error
 	*/
 	mockStore.On("DeleteOrders").Return(nil)
-	mockStore.On("CreateCustomer", &Customer{"Faruq", "Hidden Leaf", 4, "Spaghetti", 22}).Return(nil)
+	mockStore.On("CreateCustomer", &Customer{"Faruq", "Hidden Leaf", "2 plates of Spaghetti", 22}).Return(nil)
 
 	form := newCreateCustomerForm()
 	req, err := http.NewRequest("POST", "", bytes.NewBufferString(form.Encode()))
@@ -182,8 +182,7 @@ func newCreateCustomerForm() *url.Values {
 	form := url.Values{}
 	form.Set("customer", "Faruq")
 	form.Set("address", "Hidden Leaf")
-	form.Set("plates", "4")
-	form.Set("meal", "Spaghetti")
-	form.Set("price", "22")
+	form.Set("meal", "2 plates of Spaghetti")
+	form.Set("total", "22")
 	return &form
 }

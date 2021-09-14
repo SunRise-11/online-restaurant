@@ -91,14 +91,15 @@ func (s *StoreSuite) TestCreateMeal() {
 func (s *StoreSuite) TestCreateOrders() {
 	// Create an order through the store `CreateOrder` method
 	s.store.CreateOrders(&Order{
-		Meal:   "Jollof Rice",
-		Price:  10,
-		Image:  "JollofRice.jpeg",
-		Plates: 5,
+		Meal:      "Jollof Rice",
+		Price:     10,
+		Image:     "JollofRice.jpeg",
+		Plates:    5,
+		TotalCost: 50,
 	})
 
 	// Query the database for the entry we just created
-	res, err := s.db.Query(`SELECT COUNT(*) FROM orders WHERE Meal='Jollof Rice' AND Price=10 AND Image='JollofRice.jpeg' AND Plates=5`)
+	res, err := s.db.Query(`SELECT COUNT(*) FROM orders WHERE Meal='Jollof Rice' AND Price=10 AND Image='JollofRice.jpeg' AND Plates=5 AND TotalCost=50`)
 
 	if err != nil {
 		s.T().Fatal(err)
@@ -121,15 +122,14 @@ func (s *StoreSuite) TestCreateOrders() {
 func (s *StoreSuite) TestCreateCustomer() {
 	// Create an order through the store `CreateCustomer` method
 	s.store.CreateCustomer(&Customer{
-		Name:    "customer",
-		Address: "address",
-		Plates:  4,
-		Meal:    "spaghetti",
-		Price:   22,
+		Name:      "customer",
+		Address:   "address",
+		Meal:      "5 plates of spaghetti",
+		TotalCost: 22,
 	})
 
 	// Query the database for the entry we just created
-	res, err := s.db.Query(`SELECT COUNT(*) FROM customers WHERE customer_name='customer' AND location_address='address' AND plates=4 AND meal= 'spaghetti' AND price=22 `)
+	res, err := s.db.Query(`SELECT COUNT(*) FROM customers WHERE customer_name='customer' AND location_address='address' AND meal= '5 plates of spaghetti' AND TotalCost=22 `)
 	if err != nil {
 		s.T().Fatal(err)
 	}
@@ -176,7 +176,7 @@ func (s *StoreSuite) TestGetMeal() {
 }
 func (s *StoreSuite) TestGetOrders() {
 	// Insert a sample order into the `orders` table
-	_, err := s.db.Query(`INSERT INTO orders (id,meal, price,image, plates) VALUES(7, 'Egg Rice', 5, 'eggrice.jpg', 5)`)
+	_, err := s.db.Query(`INSERT INTO orders (id,meal, price,image, plates, totalcost) VALUES(7, 'Egg Rice', 5, 'eggrice.jpg', 5, 25)`)
 
 	if err != nil {
 		s.T().Fatal(err)
@@ -195,7 +195,7 @@ func (s *StoreSuite) TestGetOrders() {
 	}
 
 	// Assert that the details of the order is the same as the one we inserted
-	expectedOrder := Order{7, "Egg Rice", 5, "eggrice.jpg", 5}
+	expectedOrder := Order{7, "Egg Rice", 5, "eggrice.jpg", 5, 25}
 	if *order[0] != expectedOrder {
 		s.T().Errorf("incorrect details, expected %v, got %v", expectedOrder, *order[0])
 	}
