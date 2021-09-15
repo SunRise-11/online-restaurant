@@ -24,12 +24,16 @@
     
     <!-- Theme CSS -->
     <link rel="stylesheet" href="./static/stylesheets/theme.bundle.css" />
+    
 
     <!-- local CSS -->
     <link rel="stylesheet" type="text/css" href="./static/stylesheets/home.css">
 
     <!-- flickity CSS -->
 	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -46,7 +50,7 @@
       <div class="container">
     
         <!-- Navbar brand (mobile) -->
-        <a class="navbar-brand" href="/meal">Foodié</a>
+        <a class="navbar-brand" href="/">Foodié</a>
     
         <!-- Navbar toggler -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +67,7 @@
           <!-- Navbar nav -->
           <ul class="navbar-nav">
           	<li class="nav-item">
-              <a class="nav-link " href="/meal#menuContent">Menu</a>
+              <a class="nav-link " href="/#menuContent">Menu</a>
             </li>
             <li class="nav-item">
               <a class="nav-link " href="/checkout">Checkout</a>
@@ -148,7 +152,7 @@
     </header>
 
     <!-- MENU -->
-    <section class="py-7 py-md-9 border-bottom">
+    <section class="pt-7 pt-md-9">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-12 col-md-8 col-lg-6 text-center">
@@ -214,7 +218,7 @@
                                         </select>
                                       </div>
                                       <div class="buttons">
-                                        <button id ="formSubmit" class="btn order-btn btn-outline-primary text-primary-hover mt-2" >Order</button>
+                                        <button id ="myBtn" class="btn order-btn btn-outline-primary text-primary-hover mt-2" >Order</button>
                                       </div>
                                  
 
@@ -383,7 +387,7 @@
               </li>
               <li class="d-flex mb-2">
                 <div class="fas fa-phone me-3 mt-2 fs-sm"></div>
-                +2348183262469
+                +2348180000000
               </li>
               <li class="d-flex">
                 <div class="far fa-envelope me-3 mt-2 fs-sm"></div> <a href="mailto:admin@domain.com">admin@domain.com</a>
@@ -435,14 +439,21 @@
     <!-- TOAST -->
     <div class="toast position-fixed bottom-0 start-50 translate-middle-x mb-3 mb-md-5" id="notification" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="d-flex">
-        <div class="toast-body mx-auto"></div>
+          <div class="toast-header">
+            <strong class="me-auto">Meal added to tray</strong>
+        </div>
+        <div class="toast-body mx-auto">
+          <div class="pt-2">
+            <button type="button" class="btn check btn-primary btn-sm">Proceed to checkout</button>
+          </div>
+        </div>
       </div>
     </div>
-
     <!-- JAVASCRIPT -->
 
      <!-- Local JS -->
      <script src="./static/js/navbar.js"></script>
+     <script src="./static/js/toast.js"></script>
 
     <!-- Vendor JS -->
     <script src="./static/js/vendor.bundle.js"></script>
