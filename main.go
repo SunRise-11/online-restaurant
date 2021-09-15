@@ -32,7 +32,7 @@ func newRouter() *mux.Router {
 	r.HandleFunc("/order/", orderHandler).Methods("GET")
 
 	// database query functions
-	r.HandleFunc("/meal", getMealHandler).Methods("GET")
+	r.HandleFunc("/", getMealHandler).Methods("GET")
 	r.HandleFunc("/order", createOrderHandler).Methods("POST")
 	r.HandleFunc("/checkout", getOrderHandler).Methods("GET")
 	r.HandleFunc("/customer", CustomerInfoHandler).Methods("POST")

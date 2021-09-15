@@ -35,11 +35,8 @@ func getMealHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 
-	// tmpl := template.New("./static/homepage.html")
 	tmpl := template.Must(template.New("").ParseFiles("./static/homepage.html"))
-	// tmpl := template.Must(template.ParseFiles("./static/homepage.html"))
 	context := struct{ Meals []*Meal }{meal}
-	// tmpl.Execute(w, tmpl, context)
 	err = tmpl.ExecuteTemplate(w, "homepage.html", context)
 
 	if err != nil {
@@ -85,9 +82,20 @@ func createOrderHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 
-	//Finally, we redirect the user to the original HTMl page
-	// (located at `/static/`), using the http libraries `Redirect` method
-	http.Redirect(w, r, "/static/order.html", http.StatusFound)
+	meal, err := store.GetMeals()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	tmpl := template.Must(template.New("").ParseFiles("./static/homepage.html"))
+	context := struct{ Meals []*Meal }{meal}
+	err = tmpl.ExecuteTemplate(w, "homepage.html", context)
+
+	if err != nil {
+		fmt.Println(fmt.Errorf("error: %v", err))
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 }
 
 func getOrderHandler(w http.ResponseWriter, r *http.Request) {
