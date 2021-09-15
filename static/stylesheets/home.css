@@ -1,0 +1,31 @@
+.foodImage img{
+        height: 110px;
+        width: 110px;
+        border-radius: 50%;
+}
+.flickity-button {
+    background: #e9ecef !important; 
+}
+.flickity-button:hover {
+    background: #f5a637 !important; 
+}
+.order-btn{
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+}
+.selection select{
+    cursor: pointer;
+}
+.cancel-btn{
+    position: absolute;
+    color: #000;
+    right: 40px;
+    top: 28px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: none;
+}
+.toast {
+    width: 250px !important
+}

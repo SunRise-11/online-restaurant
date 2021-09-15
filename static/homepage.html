@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="./assets/favicon/manifest.json">
+    <link rel="mask-icon" href="./assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="./assets/favicon/favicon.ico">
+
+    <!-- Fontawesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+
+    <meta name="msapplication-config" content="./assets/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="./static/stylesheets/libs.bundle.css" />
+    
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="./static/stylesheets/theme.bundle.css" />
+    
+
+    <!-- local CSS -->
+    <link rel="stylesheet" type="text/css" href="./static/stylesheets/home.css">
+
+    <!-- flickity CSS -->
+	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    
+    <!-- Title -->
+    <title>Foodié</title>
+  </head>
+  <body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-dark navbar-expand-lg navbar-togglable fixed-top">
+      <div class="container">
+    
+        <!-- Navbar brand (mobile) -->
+        <a class="navbar-brand" href="/">Foodié</a>
+    
+        <!-- Navbar toggler -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          <div class="cancel-btn">
+            <i class="fas fa-times"></i>
+          </div>
+        </button>
+        
+    
+        <!-- Navbar collapse -->
+        <div class="collapse navbar-collapse nav" id="navbarCollapse">
+    
+          <!-- Navbar nav -->
+          <ul class="navbar-nav">
+          	<li class="nav-item">
+              <a class="nav-link " href="/#menuContent">Menu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="/checkout">Checkout</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="#about">About Us</a>
+            </li>
+          </ul>
+    
+        </div>
+      </div>
+    </nav>
+
+    <!-- WELCOME -->
+    <header data-jarallax data-speed=".8" style="background-image: url(./static/images/Foodie.jpeg);">
+      <div class="d-flex flex-column min-vh-100 bg-black-50 pt-10 pt-md-8 pb-7 pb-md-0">
+        <div class="container my-auto">
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6 text-center">
+
+              <!-- Preheading -->
+              <h6 class="text-xs text-white-75">
+                <span class="text-primary">Online</span> / Restaurant
+              </h6>
+
+              <!-- Heading -->
+              <h1 class="display-1 text-white mb-4">
+                Foodié
+              </h1>
+
+              <!-- Subheading -->
+              <p class="text-center text-white-75">
+                A one of it's kind online restaurant serving the biggest city in Nigeria.
+              </p>
+              <p class="text-center text-white-75 mb-2">
+                We are always open for orders.
+              </p>
+
+              <!-- Button -->
+              <a class="btn btn-outline-primary text-white text-primary-hover mb-7 mb-md-0" href="#menuContent">
+                ENTER
+              </a>
+
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md">
+
+              <!-- Social links -->
+              <ul class="list-inline text-center text-md-start mb-3 my-md-5">
+                <li class="list-inline-item">
+                  <a class="text-white-75 text-primary-hover" href="https://twitter.com/_Ace_II/">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item ms-5">
+                  <a class="text-white-75 text-primary-hover" href="https://www.linkedin.com/in/faruq-abdulsalam-b2847b160/">
+                    <i class="fab fa-linkedin-in"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item ms-5">
+                  <a class="text-white-75 text-primary-hover" href="https://www.instagram.com/faruq.t/">
+                    <i class="fab fa-instagram"></i>
+                  </a>
+                </li>
+              </ul>
+
+            </div>
+            <div class="col-md">
+
+              <!-- Address -->
+              <p class="font-serif text-white-75 text-center text-md-end text-lg-end my-md-5">
+                <i class="fas fa-map-marker-alt text-primary me-3"></i> Lagos, Nigeria
+              </p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MENU -->
+    <section class="pt-7 pt-md-9">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-8 col-lg-6 text-center">
+
+            <!-- Heading -->
+            <h2 class="mb-2">
+              Menu 
+            </h2>
+
+            <!-- Subheading -->
+            <p class="mb-6">
+          		We promise a mouthwatering expericence with our fresh and delicious dishes
+            </p>
+
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+
+            <!-- Content -->
+            <div class="tab-content" id="menuContent">
+              <div class="tab-pane fade show active" id="mains" role="tabpanel" aria-labelledby="mainsTab">
+                <div class="row">
+
+                  
+                  {{range .Meals}}
+                      <div class="col-12 col-md-6">
+                          <div class="py-3 border-bottom">
+                            <div class="row">
+                              
+                              <div class="col-3 align-self-center">
+                                <!-- Image -->
+                                <div class="ratio ratio-1x1">
+                                  <img class="object-fit-cover" src="/static/images/{{.Image}}" alt="...">
+                                </div>
+                              </div>
+
+                              <div class="col-7">
+                                <!-- Heading -->
+                                <h5 class="mb-2">{{.Food}}</h5>
+
+                                <!-- Text -->
+                                <div class="mb-0">
+                                  <!-- order meal -->
+                                  <form action="/order" method="post">
+                                      <input type="hidden" name="meal" value="{{.Food}}">
+                                      <input type="hidden" name="price" value="{{.Price}}">
+                                      <input type="hidden" name="image" value="{{.Image}}">
+                                      <!-- pick quantity -->
+                                      <div class="selection">
+                                        <label for="quantity">Number of plates</label>
+                                        <select id="quantity" class="Plates" name="PlateNumbers">
+                                            <option class="" value="1" name="">1</option>
+                                            <option class="" value="2" name="">2</option>
+                                            <option class="" value="3" name="">3</option>
+                                            <option class="" value="4" name="">4</option>
+                                            <option class="" value="5" name="">5</option>
+                                            <option class="" value="6" name="">6</option>
+                                            <option class="" value="7" name="">7</option>
+                                            <option class="" value="8" name="">8</option>
+                                            <option class="" value="9" name="">9</option>
+                                            <option class="" value="10" name="">10</option>
+                                        </select>
+                                      </div>
+                                      <div class="buttons">
+                                        <button id ="myBtn" class="btn order-btn btn-outline-primary text-primary-hover mt-2" >Order</button>
+                                      </div>
+                                 
+
+                                  </form>
+                                </div>
+                              </div>
+                              <div class="col-2">
+
+                                <!-- Price -->
+                                <div class="fs-4 font-serif text-center text-black">
+                                  ${{.Price}}
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                    
+                  {{end}}
+                 
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="py-7 py-md-9 border-bottom">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-8 col-lg-6 text-center">
+
+            <!-- Heading -->
+            <h2 class="mb-2">
+              What our customers say about us
+            </h2>
+
+            <!-- Subheading -->
+            <p class="mb-6">
+              Your satisfaction is our number one priority
+            </p>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+
+        <!-- Slider -->
+            <div data-flickity='{"imagesLoaded": true, "wrapAround": true}'>
+              <div class="w-100">
+                <div class="row align-items-center justify-content-center">
+                  <div class="col-8 col-md-3 order-md-1">
+
+                    <!-- Avatar -->
+                    <img class="img-fluid rounded-circle mb-5 mb-md-0" src="./static/images/luffy.jpeg" alt="..." />
+
+                  </div>
+                  <div class="col-md-7 order-md-0">
+
+                    <!-- Blockquote -->
+                    <figure class="mx-auto mb-0" style="max-width: 500px;">
+                      <blockquote class="blockquote mb-0">
+                        <p class="font-serif text-black mb-5">
+                          I have to say, I enjoyed every single bite of the meal. I ordered for Fried Rice together with Grilled Fish. Considering the quality, the price is very reasonable. 
+                        </p>
+                      </blockquote>
+                      <figcaption class="blockquote-footer text-xs mb-0">
+                        Luffy
+                      </figcaption>
+                    </figure>
+
+                  </div>
+                </div>
+              </div>
+              <div class="w-100">
+                <div class="row align-items-center justify-content-center">
+                  <div class="col-8 col-md-3 order-md-1">
+
+                    <!-- Avatar -->
+                    <img class="img-fluid rounded-circle mb-5 mb-md-0" src="./static/images/ace.jpeg" alt="..." />
+
+                  </div>
+                  <div class="col-md-7 order-md-0">
+
+                    <!-- Blockquote -->
+                    <figure class="mx-auto mb-0" style="max-width: 500px;">
+                      <blockquote class="blockquote mb-0">
+                        <p class="font-serif text-black mb-5">
+                          Today I ordered 3 plates of spaghetti and two steaks, the ceasar salad was also very tasty. They were all delivered in well packed conditions. I will definitely patronize them again.
+                        </p>
+                      </blockquote>
+                      <figcaption class="blockquote-footer text-xs mb-0">
+                        Ace
+                      </figcaption>
+                    </figure>
+
+                  </div>
+                </div>
+              </div>
+              <div class="w-100">
+                <div class="row align-items-center justify-content-center">
+                  <div class="col-8 col-md-3 order-md-1">
+
+                    <!-- Avatar -->
+                    <img class="img-fluid rounded-circle mb-5 mb-md-0" src="./static/images/sabo.png" alt="..." />
+
+                  </div>
+                  <div class="col-md-7 order-md-0">
+
+                    <!-- Blockquote -->
+                    <figure class="mx-auto mb-0" style="max-width: 500px;">
+                      <blockquote class="blockquote mb-0">
+                        <p class="font-serif text-black mb-5">
+                          Delivery was fast. Ordered dinner with friends. Menu is perfect, something for everyone. 
+                        </p>
+                      </blockquote>
+                      <figcaption id="about" class="blockquote-footer text-xs mb-0">
+                        Sabo
+                      </figcaption>
+                    </figure>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div >
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-7 py-md-9 bg-black">
+      <div class="container px-4">
+        <div class="row gx-7">
+          <div class="col-sm-4">
+    
+            <!-- Heading -->
+            <h5 class="text-xs text-primary">
+              About Us
+            </h5>
+    
+            <!-- Text -->
+            <p>
+              We are a first-choice online restaurant aiming to make mouthwatering and delicious meals available at the fingertips of the busiest people in the busiest city in Nigeria. With Foodie, you dont have to worry about food when you are in traffic or at the office.</p> 
+              We offer a pay on delivery service and our riders always deliver on time.</p>
+            <p>Go Foodie and you wont ever go back.</p> 
+           
+    
+          </div>
+          <div class="col-sm-4">
+    
+            <!-- Heading -->
+            <h5 class="text-xs text-primary">
+              Contact info
+            </h5>
+    
+            <!-- List -->
+            <ul class="list-unstyled mb-6">
+              <li class="d-flex mb-2">
+                <div class="fas fa-map-marker-alt me-3 mt-2 fs-sm"></div>
+                Lagos, Nigeria
+              </li>
+              <li class="d-flex mb-2">
+                <div class="fas fa-phone me-3 mt-2 fs-sm"></div>
+                +2348180000000
+              </li>
+              <li class="d-flex">
+                <div class="far fa-envelope me-3 mt-2 fs-sm"></div> <a href="mailto:admin@domain.com">admin@domain.com</a>
+              </li>
+            </ul>
+    
+          </div>
+          <div class="col-sm-4">
+    
+            <!-- Heading -->
+            <h5 class="text-xs text-primary">
+              Opening hours
+            </h5>
+
+            <!-- Text -->
+            <div class="mb-3">
+              <div class="text-xs">KINDLY MAKE YOUR ORDERS EARLY</div>
+            </div>
+    
+            <!-- Text -->
+            <div class="mb-3">
+              <div class="text-xs">Monday - Thursday</div>
+              <div class="font-serif">8:00 AM - 1:00 PM</div>
+            </div>
+    
+            <!-- Text -->
+            <div class="mb-6">
+              <div class="text-xs">Friday - Sunday</div>
+              <div class="font-serif">8:00 AM - 05:00 PM</div>
+            </div>
+    
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+    
+            <!-- Copyright -->
+            <div class="d-flex align-items-center">
+              <hr class="hr-sm me-3" style="height: 1px;" /> &copy; 2021 Foodié. All rights reserved.
+            </div>
+    
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    
+    <!--  -->
+    <!-- TOAST -->
+    <div class="toast position-fixed bottom-0 start-50 translate-middle-x mb-3 mb-md-5" id="notification" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+          <div class="toast-header">
+            <strong class="me-auto">Meal added to tray</strong>
+        </div>
+        <div class="toast-body mx-auto">
+          <div class="pt-2">
+            <button type="button" class="btn check btn-primary btn-sm">Proceed to checkout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- JAVASCRIPT -->
+
+     <!-- Local JS -->
+     <script src="./static/js/navbar.js"></script>
+     <script src="./static/js/toast.js"></script>
+
+    <!-- Vendor JS -->
+    <script src="./static/js/vendor.bundle.js"></script>
+    
+    <!-- Theme JS -->
+    <script src="./static/js/theme.bundle.js"></script>
+
+    <!-- Theme JS -->
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+   
+
+  </body>
+</html>
+
+
+
+

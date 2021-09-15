@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+    foodie:
+        image: foodie
+        build:
+            context: ..
+            dockerfile: .docker/dev.Dockerfile
+        restart: "unless-stopped"
+        volumes: 
+            - ..:/app
+        ports: 
+            - 8020:8080
+        depends_on: 
+            - Foodie-db
+    Foodie-db:
+        image: postgres:13
+        volumes: 
+            - pgdata:/var/lib/postgresql/data
+        restart: "unless-stopped"
+        environment:
+            POSTGRES_PASSWORD: "12345"
+            POSTGRES_USER: postgres
+            POSTGRES_DB: Foodie
+        ports: 
+            - 15432:5432
+            
+volumes:
+    pgdata:
+

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="./assets/favicon/manifest.json">
+    <link rel="mask-icon" href="./assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="./assets/favicon/favicon.ico">
+
+    <!-- Fontawesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+
+    <meta name="msapplication-config" content="./assets/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="./static/stylesheets/libs.bundle.css" />
+    
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="./static/stylesheets/theme.bundle.css" />
+
+    <!-- local CSS -->
+    <link rel="stylesheet" type="text/css" href="./static/stylesheets/checkout.css">
+
+    <!-- flickity CSS -->
+	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    
+    <!-- Title -->
+    <title>Checkout</title>
+  </head>
+  <body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-light navbar-expand-lg  fixed-top">
+      <div class="container">
+    
+        <!-- Navbar brand (mobile) -->
+        <a class="navbar-brand" href="/">Foodié</a>
+    
+        <!-- Navbar toggler -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          <div class="cancel-btn">
+            <i class="fas fa-times"></i>
+          </div>
+        </button>
+    
+        <!-- Navbar collapse -->
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link " href="/#menuContent">Menu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="#about">About Us</a>
+            </li>
+          </ul>
+    
+        </div>
+      </div>
+    </nav>
+
+    <!-- ARTICLE -->
+    <article class="pt-10">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-8 col-lg-6 text-center">
+
+            <!-- Preheading -->
+            {{if .Orders}}
+            <h6 class="text-xs text-primary">
+              CHECKOUT
+            </h6>
+
+            <!-- Heading -->
+            <h1 class="confirm-display mb-4">
+              Kindly confirm your order
+            </h1>
+            {{else}}
+            <h2 class="text-xs checkout text-primary">
+              CHECKOUT
+            </h2>
+            {{end}}
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-12">
+            <div class="cover">
+              <div class="main">
+                {{if .Orders}}
+                  <div class="header">
+                    <div class="c1">
+                      <span>Meal</span>
+                    </div>
+                    <div class="c2">
+                      <span>Plates </span><span>Price </span>
+                    </div>
+                    <div class="c3">
+                      <span>Action</span>
+                    </div>
+                  </div>
+                {{else}}
+                <div class="empty-box">
+                  <div class="empty-box-1">
+                    <img class="mb-2" src="/static/images/Tray.jpeg" alt="">
+                    <h3> Your tray is empty.</h3>
+                    <p> You have not added any meal to your tray.</p>
+                  </div>
+                </div>
+                {{end}}
+          
+                {{range .Orders}}
+                  {{if gt .ID 0}}
+                      <div class="content" id="js-cart-items-wrapper">
+                                  <div class="content-1">
+                                      <div class="content-2">
+                                        <div class="meal">
+                                          <div>
+                                            <div class="meal-1">
+                                              <p class="meal-img">
+                                                <picture>
+                                                  <img data-expand="100" class="mealy" src="/static/images/{{.Image}}">
+                                                </picture>
+                                              </p>
+                                              <div class="description">
+                                                <h3>
+                                                  <p>{{.Meal}}</p>
+                                                </h3>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="price">
+                                              <div>
+                                                <div class="plates">
+                                                  <div class="quantity">
+                                                    <span>{{.Plates}}</span>
+                                                  </div>
+                                                  <div class="">
+                                                    <p class="quantity-1">Plates:</p>
+                                                    <p>{{.Plates}}</p>
+                    
+                                                  </div>
+                                                </div>
+                                                <div class="prices">
+                                                  <h3 class="p-val">
+                                                    <span>$</span>{{.TotalCost}}
+                                                  </h3>
+                                                  <p class="tot-val">
+                                                    <span>
+                                                      <span class="tot">$</span>{{.Price}}
+                                                    </span> x {{.Plates}} plate(s)
+                                                  </p>
+                                                </div>
+                                              </div>
+                                        </div>
+
+                                        <!-- DELETE ORDER FORM-->
+                                        <div class="delete">
+                                            <form action="/checkout" method="POST">
+                                              <div class="del-btn">
+                                                <button name="delete" type="submit" value="{{.ID}}">
+                                                <span>Remove meal</span>
+                                                </button>
+                                              </div>
+                                            </form>
+                                        </div>
+                                      </div>
+                                  </div>
+                      </div>
+                  {{end}}
+                {{end}}
+                {{if .Orders}}
+                  <div class="header">
+                    <div class="c1">
+                      <span></span>
+                    </div>
+                    <div class="c2">
+                      <span>Total </span><span></span>
+                    </div>
+                    <div class="c3">
+                      <span id=footerprice>Action</span>
+                    </div>
+                  </div>
+                {{end}}
+
+                {{if .Orders}}
+                <div class="total-header">
+                  <div class="total-header-1">
+                    <h3>Total</h3>
+                    <span>
+                      <span style="margin-right:1px">$</span><span id="totalfoot"></span>
+                    </span>
+                  </div>
+                </div>
+                {{end}}
+              </div>
+            </div>
+
+            <!-- Divider -->
+            <hr class="mt-0 mb-0" />
+
+        </div>
+
+        </div>
+        <!-- Subheading -->
+          <p class="mb-3 mt-3 more">
+            {{if .Orders}}Want more?{{end}} <a href="/#menuContent">Add to your tray</a> 
+          </p>
+      </div>
+    </article>
+
+    <!-- CUSTOMER DETAILS -->
+    {{if .Orders}}
+    <section class="pb-7 pt-5 py-md-9 bg-light" id="details">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="pb-3 col-12 col-md-8 col-lg-6 text-center">
+
+            <!-- Heading -->
+            <h2 class="mb-2">
+              Kindly Provide your details
+            </h2>
+          </div>
+        </div>
+        <div class="row justify-content-lg-center">
+          <div class="col-lg-8">
+
+          <!-- Get meal and total cost -->
+          {{range .Orders}}
+            <input type="hidden" class="ordering" value="{{.Plates}} plate(s) of {{.Meal}}">
+            <input type="hidden" class="cost" value="{{.TotalCost}}">
+          {{end}}
+
+            <!-- CUSTOMER DETAILS FORM-->
+            <!-- <form action="" method="" id="reservationForm"> -->
+            <form action="/customer" method="post" id="reservationForm">
+              <div class="row gx-3">
+                <div class="col-md-12 mb-2">
+
+                  <!-- Full name -->
+                  <div class="mb-3">
+                    <label class="visually-hidden" for="user_name">Full name</label>
+                    <input class="form-control" id="user_name" name="customer" type="text" placeholder="Full name" required="">
+                  </div>
+
+                  <!-- Phone number -->
+                  <div class="mb-3">
+                    <label class="visually-hidden" for="user_phone">Phone number</label>
+                    <input class="form-control" id="user_phone" name="user_phone" type="tel" placeholder="Phone number" required="">
+                  </div>
+
+                  <!-- Customer Address -->
+                  <div class="mb-3">
+                    <label class="visually-hidden" for="address">Delivery address</label>
+                    <input class="form-control" id="address" name="address" type="text" placeholder="Delivery address" required="">
+                  </div>
+                </div>
+
+                <input type="hidden" id="food" name="meal" value="">
+                <input type="hidden" id="total" name="total" value="">
+                
+                <div class="col text-center">
+
+                  <!-- Button -->
+                  <button class="btn btn-outline-primary" type="submit">
+                    Complete Order
+                  </button>
+
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </section>
+    {{end}}
+    
+    <!-- FOOTER -->
+    <footer id="about"  class="py-7 py-md-9 bg-black">
+      <div class="container px-4">
+        <div class="row gx-7">
+          <div class="col-sm-4">
+    
+            <!-- Heading -->
+            <h5 class="text-xs text-primary">
+              About Us
+            </h5>
+    
+            <!-- Text -->
+            <p>
+              We are a first-choice online restaurant aiming to make mouthwatering and delicious meals available at the fingertips of the busiest people in the busiest city in Nigeria. With Foodie, you dont have to worry about food when you are in traffic or at the office.</p> 
+              We offer a pay on delivery service and our riders always deliver on time.</p>
+            <p class="mb-2">Go Foodie and you won’t ever look back.</p> 
+    
+
+          </div>
+          <div class="col-sm-4">
+    
+            <!-- Heading -->
+            <h5 class="text-xs text-primary">
+              Contact info
+            </h5>
+    
+            <!-- List -->
+            <ul class="list-unstyled mb-6">
+              <li class="d-flex mb-2">
+                <div class="fas fa-map-marker-alt me-3 mt-2 fs-sm"></div>
+                Lagos, Nigeria
+              </li>
+              <li class="d-flex mb-2">
+                <div class="fas fa-phone me-3 mt-2 fs-sm"></div>
+                +2348180000000
+              </li>
+              <li class="d-flex">
+                <div class="far fa-envelope me-3 mt-2 fs-sm"></div> <a href="mailto:admin@domain.com">admin@domain.com</a>
+              </li>
+            </ul>
+    
+          </div>
+          <div class="col-sm-4">
+    
+            <!-- Heading -->
+            <h5 class="text-xs text-primary">
+              Opening hours
+            </h5>
+
+            <!-- Text -->
+            <div class="mb-3">
+              <div class="text-xs">KINDLY MAKE YOUR ORDERS EARLY</div>
+            </div>
+    
+            <!-- Text -->
+            <div class="mb-3">
+              <div class="text-xs">Monday - Thursday</div>
+              <div class="font-serif">8:00 AM - 1:00 PM</div>
+            </div>
+    
+            <!-- Text -->
+            <div class="mb-6">
+              <div class="text-xs">Friday - Sunday</div>
+              <div class="font-serif">8:00 AM - 05:00 PM</div>
+            </div>
+    
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+    
+            <!-- Copyright -->
+            <div class="d-flex align-items-center">
+              <hr class="hr-sm me-3" style="height: 1px;" /> &copy; 2021 Foodié. All rights reserved.
+            </div>
+    
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- TOAST -->
+    <div class="toast position-fixed bottom-0 start-50 translate-middle-x mb-3 mb-md-5" id="notification" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body mx-auto"></div>
+      </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+         <!-- Local JS -->
+         <script src="./static/js/checkout.js"></script>
+         <script src="./static/js/navbar.js"></script>
+
+         <!-- Vendor JS -->
+         <script src="./static/js/vendor.bundle.js"></script>
+         
+         <!-- Theme JS -->
+         <script src="./static/js/theme.bundle.js"></script>
+
+  </body>
+</html>

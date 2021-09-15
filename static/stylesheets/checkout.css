@@ -1,0 +1,376 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+     text-decoration: none;
+  	scroll-behavior: smooth;
+ }
+
+h1, p {
+    margin: 0;
+    padding: 0;
+}
+
+input {
+    border: none;
+}
+
+.cover{
+  padding: 0 1.25rem;
+}
+.main{
+	margin-bottom: 2.5rem;
+    width: 100%;
+    text-align: center;
+}
+
+.header{
+	 background-color: #e6e6e6;
+    font-size: .875rem;
+    font-weight: 700;
+    padding: .625rem 1.25rem;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.header span {
+    color: #4a4a4a;
+     display: inline-block; 
+}
+.c1{
+	width: 50%;
+}
+.c2{
+	width: 35%;
+}
+.c3{
+	text-align: right;
+    width: 15%;
+}
+
+.c2>span:first-child {
+    text-align: center;
+}
+.c2>span {
+    width: 50%;
+}
+
+.content-1 {
+    background-color: #fff;
+}
+
+.content-2{
+    margin: 0;
+    padding: .9375rem 0;
+    position: relative;
+    width: 100%;
+}
+
+.content-2, .price>div,.total-header-1,.empty-box{
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.content-2, .del-btn, .price>div, .meal-1, .description, .total-header-1,.empty-box, .empty-box-1  {
+    display: -webkit-box; 
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.price>div{
+	width: 100%;
+}
+
+.del-btn, .description,.empty-box, .empty-box-1{
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.content-2 .del-btn button:first-child {
+    margin: 0;
+}
+
+.content-2 .del-btn button {
+    margin: .3125rem 0;
+    border: none;
+    -ms-flex-item-align: end;
+    /* align-self: flex-end; */
+}
+
+.del-btn button {
+    background-color: unset;
+    color: #f5a637;
+    cursor: pointer;
+    font-weight: 300;
+    text-align: right;
+}
+
+.more{
+    text-align: center;
+}
+.meal{
+	width: 50%;
+}
+
+.meal-1{
+	padding: 0;
+}
+
+.meal-img{
+	/* height: 6.25rem; */
+    margin-right: .625rem;
+    overflow: hidden;
+    width: 6.25rem;
+}
+.meal-1 .meal-img img {
+    -o-object-fit: contain;
+    object-fit: contain;
+    width: 100%;
+}
+
+.mealy {
+    text-indent: -624.9375rem;
+}
+
+.description {
+    margin: 0 0 .5rem;
+    width: 50%; 
+}
+
+.description h3 {
+    color: #404553;
+    font-size: .8125rem;
+    font-weight: 600;
+    margin-bottom: .25rem;
+}
+
+.description h3, .d4bb3_16i4X p {
+    margin: 0;
+}
+
+img {
+    height: auto;
+    max-width: 100%;
+}
+
+.price {
+    margin-bottom: .25rem;
+    padding: 0 0 .5rem;
+}
+
+.price>div .plates {
+    margin-right: .625rem;
+    width: 6.25rem;
+}
+
+.plates {
+    text-align: center;
+    display: inline-block;
+}
+.plates .quantity {
+    display: none;
+}
+
+.plates .quantity span {
+    display: block;
+    border: .0625rem solid #ccc;
+    width: 2.1875rem;
+    height: 1.5rem;
+    border-radius: .125rem;
+    background-color: #fff;
+    text-align: center;
+    font-size: .8125rem;
+    line-height: 1.5rem;
+    margin: 0 auto;
+}
+
+
+.price>div .prices  {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -ms-flex-item-align: end;
+    align-self: flex-end;
+}
+
+.prices {
+    text-align: left;
+}
+
+.prices h3{
+	font-size: 1.25rem;
+}
+
+.content-2 .p-val {
+     color: #4a4a4a; 
+}
+
+.prices h3, .prices p {
+    margin: 0;
+}
+
+.prices h3 span, .prices .tot-val span .tot{
+	margin-right: 2px;
+}
+
+.quantity-1  {
+/*    font-size: .75rem;*/
+    margin: 0 .125rem .25rem;
+    text-align: left;
+}
+
+.prices p {
+    color: #9b9b9b;
+    font-size: .8125rem; 
+  
+    font-weight: 600;
+}
+
+.delete{
+	border-top: .0625rem solid #e8e8e8;
+}
+
+.confirm-display {
+    font-weight: 700;
+    line-height: 1;
+}
+
+.total-header {
+    display: none;
+}
+.total-header-1:last-child {
+    padding-bottom: .625rem;
+}
+.total-header-1:first-child {
+    border-bottom: .0625rem solid #e8e8e8;
+    margin-bottom: .3125rem;
+    padding: .625rem;
+}
+.total-header-1 {
+    padding: .3125rem .625rem;
+}
+.total-header-1 span {
+    font-size: .875rem;
+    font-weight: 700;
+    margin-top: 5px;
+}
+.checkout{
+    font-size: 1.75rem !important;
+}
+
+.empty-box {
+    background-color: #fff;
+    height: 18.75rem;
+    padding: 1.875rem;
+    width: 100%;
+}
+.empty-box-1 img{
+    width: 30%;
+}
+.empty-box-1 {
+    align-items: center;
+}
+.cancel-btn{
+    position: absolute;
+    color: #000;
+    right: 40px;
+    top: 28px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: none;
+}
+/*media queries*/
+@media (min-width: 992px){
+	.cover{
+     	padding: .625rem 1.875rem; 
+	}
+}
+@media (min-width: 768px){
+	.content {
+	    background-color: #fff;
+	    padding: 0 1.25rem;
+	}
+	.quantity-1 {
+    	display: none;
+	}
+}
+@media screen and (min-width: 768px){
+	.description h3 {
+    	font-size: .9375rem;
+	}
+	.price {
+	    border-bottom: none;
+	    margin-bottom: 0;
+	    width: 35%;
+	}
+	.price>div .plates {
+	    width: 50%;
+	    margin-right: 0;
+	    text-align: center;
+	}
+	.price>div .prices {
+	    /* width: 50%; */
+	    -webkit-box-flex: initial;
+	    -ms-flex: initial;
+	    flex: initial;
+	}
+	.delete {
+    	border-top: none;
+    	width: 15%;
+	}
+}
+@media screen and (max-width: 768px){
+	.content-2 {
+	    border: .0625rem solid #e8e8e8;
+	    display: block;
+	    margin-bottom: .625rem;
+	    padding: .625rem;
+	}
+	.header{
+    	display: none;
+	}
+	.meal-1 {
+	    width: 100%;
+	}
+	.meal{
+	    width: unset;
+	}
+    .prices{
+        text-align: center;
+    }
+    .description{
+        width: 70%;
+    }
+	.content-2 .del-btn button {
+	    background-color: unset;
+	    border: .0625rem solid #d8d8d8;
+	    border-radius: .1875rem;
+	    color: #404553;
+	    cursor: pointer;
+	    font-weight: 700;
+	    height: 1.875rem;
+	    font-size: .75rem;
+	    line-height: 1;
+	    margin: 0;
+	    text-align: center;
+	}
+    .total-header{
+        background-color: #e6e6e6;
+        display: block;
+    }
+    .total-header h3, .total-header h5, .total-headerspan {
+        color: #4a4a4a;
+        font-weight: 600;
+        margin: 0;
+    }
+    .empty-box-1 img{
+        width: 45%;
+    }
+
+}
