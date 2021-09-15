@@ -19,10 +19,13 @@
 .cancel-btn{
     position: absolute;
     color: #000;
-    right: 80px;
+    right: 40px;
     top: 28px;
     font-size: 20px;
     cursor: pointer;
     transition: all 0.2s ease;
     display: none;
-  }
+}
+.toast {
+    width: 250px !important
+}

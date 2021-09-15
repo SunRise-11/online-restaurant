@@ -275,7 +275,16 @@ img {
 .empty-box-1 {
     align-items: center;
 }
-
+.cancel-btn{
+    position: absolute;
+    color: #000;
+    right: 40px;
+    top: 28px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: none;
+}
 /*media queries*/
 @media (min-width: 992px){
 	.cover{
