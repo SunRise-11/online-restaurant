@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"html/template"
 	"log"
 	"net/http"
 
@@ -11,25 +10,8 @@ import (
 	_ "github.com/lib/pq"
 )
 
-func frontpageHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("./static/homepage.html"))
-	tmpl.Execute(w, tmpl)
-}
-func menuHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("./static/menu.html"))
-	tmpl.Execute(w, tmpl)
-}
-func orderHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("./static/order.html"))
-	tmpl.Execute(w, tmpl)
-}
-
 func newRouter() *mux.Router {
 	r := mux.NewRouter()
-
-	r.HandleFunc("/home/", frontpageHandler).Methods("GET")
-	r.HandleFunc("/menu/", menuHandler).Methods("GET")
-	r.HandleFunc("/order/", orderHandler).Methods("GET")
 
 	// database query functions
 	r.HandleFunc("/", getMealHandler).Methods("GET")
