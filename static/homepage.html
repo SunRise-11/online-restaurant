@@ -30,11 +30,8 @@
     <link rel="stylesheet" type="text/css" href="./static/stylesheets/home.css">
 
     <!-- flickity CSS -->
-	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+	  <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 
-    <!-- Jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
@@ -197,7 +194,7 @@
                                 <!-- Text -->
                                 <div class="mb-0">
                                   <!-- order meal -->
-                                  <form action="/order" method="post">
+                                  <form action="" method="">
                                       <input type="hidden" name="meal" value="{{.Food}}">
                                       <input type="hidden" name="price" value="{{.Price}}">
                                       <input type="hidden" name="image" value="{{.Image}}">
@@ -218,7 +215,8 @@
                                         </select>
                                       </div>
                                       <div class="buttons">
-                                        <button id ="myBtn" class="btn order-btn btn-outline-primary text-primary-hover mt-2" >Order</button>
+                                        <!-- <button id ="myBtn" class="btn order-btn btn-outline-primary text-primary-hover mt-2" >Order</button> -->
+                                        <input type="submit" value="Order" class="btn">
                                       </div>
                                  
 
@@ -441,18 +439,19 @@
       <div class="d-flex">
           <div class="toast-header">
             <strong class="me-auto">Meal added to tray</strong>
-        </div>
-        <div class="toast-body mx-auto">
-          <div class="pt-2">
-            <button type="button" class="btn check btn-primary btn-sm">Proceed to checkout</button>
           </div>
-        </div>
+          <div class="toast-body mx-auto">
+            <div class="pt-2">
+              <a class="btn check btn-primary btn-sm" href="/checkout">Proceed to checkout</a>
+            </div>
+          </div>
       </div>
     </div>
     <!-- JAVASCRIPT -->
 
      <!-- Local JS -->
      <script src="./static/js/navbar.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
      <script src="./static/js/toast.js"></script>
 
     <!-- Vendor JS -->
@@ -463,8 +462,6 @@
 
     <!-- Theme JS -->
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
-
-   
 
   </body>
 </html>
