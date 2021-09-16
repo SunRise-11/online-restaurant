@@ -29,3 +29,9 @@
 .toast {
     width: 250px !important
 }
+.start-100 {
+    left: 80%!important;
+}
+.ex {
+    text-align: right;
+  }
