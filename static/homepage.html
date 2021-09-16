@@ -5,14 +5,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="./assets/favicon/manifest.json">
-    <link rel="mask-icon" href="./assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
-    <link rel="shortcut icon" href="./assets/favicon/favicon.ico">
-
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
 
@@ -31,10 +23,7 @@
 
     <!-- flickity CSS -->
 	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
-
-    <!-- Jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
+ 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
@@ -197,7 +186,7 @@
                                 <!-- Text -->
                                 <div class="mb-0">
                                   <!-- order meal -->
-                                  <form action="/order" method="post">
+                                  <form>
                                       <input type="hidden" name="meal" value="{{.Food}}">
                                       <input type="hidden" name="price" value="{{.Price}}">
                                       <input type="hidden" name="image" value="{{.Image}}">
@@ -218,7 +207,7 @@
                                         </select>
                                       </div>
                                       <div class="buttons">
-                                        <button id ="myBtn" class="btn order-btn btn-outline-primary text-primary-hover mt-2" >Order</button>
+                                        <input type="submit" class="btn order-btn btn-outline-primary text-primary-hover mt-2" value="Order">
                                       </div>
                                  
 
@@ -437,30 +426,58 @@
     
     <!--  -->
     <!-- TOAST -->
-    <div class="toast position-fixed bottom-0 start-50 translate-middle-x mb-3 mb-md-5" id="notification" role="alert" aria-live="assertive" aria-atomic="true">
+    <!-- <div class="toast position-fixed bottom-0 start-100 translate-middle-x my-3 my-md-5" id="notification" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="d-flex">
           <div class="toast-header">
             <strong class="me-auto">Meal added to tray</strong>
-        </div>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
         <div class="toast-body mx-auto">
           <div class="pt-2">
-            <button type="button" class="btn check btn-primary btn-sm">Proceed to checkout</button>
+            <a class="btn check btn-primary btn-sm" href="/checkout">Proceed to checkout</a>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+      <div id="liveToast" class="toast hide d-flex" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <strong class="me-auto">Meal added to tray</strong>
+        </div>
+        <div class="toast-body mx-auto">
+          <div class="text-center">
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="pt-2">
+            <a class="btn check btn-primary btn-sm" href="/checkout"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-square" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+            </svg>Proceed to checkout</a>
           </div>
         </div>
       </div>
     </div>
+
     <!-- JAVASCRIPT -->
 
      <!-- Local JS -->
      <script src="./static/js/navbar.js"></script>
+     <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <!-- Local JS -->
      <script src="./static/js/toast.js"></script>
 
     <!-- Vendor JS -->
-    <script src="./static/js/vendor.bundle.js"></script>
+    <!-- <script src="./static/js/vendor.bundle.js"></script> -->
     
     <!-- Theme JS -->
-    <script src="./static/js/theme.bundle.js"></script>
+    <!-- <script src="./static/js/theme.bundle.js"></script> -->
 
+    
     <!-- Theme JS -->
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 
