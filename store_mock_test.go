@@ -126,7 +126,7 @@ func TestCreateOrderHandler(t *testing.T) {
 	}
 	recorder := httptest.NewRecorder()
 
-	hf := http.HandlerFunc(createOrderHandler)
+	hf := http.HandlerFunc(mockCreateOrderHandler)
 
 	hf.ServeHTTP(recorder, req)
 
