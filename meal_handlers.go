@@ -82,14 +82,16 @@ func createOrderHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 
-	meal, err := store.GetMeals()
+	orders, err := store.GetOrders()
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	tmpl := template.Must(template.New("").ParseFiles("./static/homepage.html"))
-	context := struct{ Meals []*Meal }{meal}
-	err = tmpl.ExecuteTemplate(w, "homepage.html", context)
+	tmpl := template.Must(template.New("").ParseFiles("./static/checkout.html"))
+
+	context := struct{ Orders []*Order }{orders}
+
+	err = tmpl.ExecuteTemplate(w, "checkout.html", context)
 
 	if err != nil {
 		fmt.Println(fmt.Errorf("error: %v", err))
@@ -116,8 +118,8 @@ func getOrderHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-
 }
+
 func getCustomerHandler(w http.ResponseWriter, r *http.Request) {
 
 	customer, err := store.GetCustomer()
@@ -136,7 +138,6 @@ func getCustomerHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-
 }
 
 func CustomerInfoHandler(w http.ResponseWriter, r *http.Request) {
@@ -219,7 +220,6 @@ func DeleteMealOrderHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-
 }
 
 // mockstore handlers
@@ -258,5 +258,42 @@ func mockGetOrderHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Write(OrderBytes)
+}
+func mockCreateOrderHandler(w http.ResponseWriter, r *http.Request) {
 
+	order := Order{}
+
+	err := r.ParseForm()
+
+	// In case of any error, we respond with an error to the user
+	if err != nil {
+		fmt.Println(fmt.Errorf("error: %v", err))
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	// Get the information about the ordered meal from the form info
+	order.Meal = r.Form.Get("meal")
+	order.Price, err = strconv.Atoi(r.Form.Get("price"))
+	if err != nil {
+		fmt.Println(fmt.Errorf("error: %v", err))
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	order.Image = r.Form.Get("image")
+	order.Plates, err = strconv.Atoi(r.Form.Get("PlateNumbers"))
+	if err != nil {
+		fmt.Println(fmt.Errorf("error: %v", err))
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	// Get total cost of meal
+	order.TotalCost = order.Price * order.Plates
+
+	err = store.CreateOrders(&order)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	http.Redirect(w, r, "/static/", http.StatusFound)
 }

@@ -25,8 +25,8 @@ func (s *StoreSuite) SetupSuite() {
 		stored as an instance variable,
 		as is the higher level `store`, that wraps the `db`
 	*/
-	// connString := "host=Foodie-db user=postgres password=12345 dbname=Foodie sslmode=disable"
-	connString := "user=postgres password=12345 dbname=Foodie sslmode=disable"
+	connString := "host=Foodie-db user=postgres password=12345 dbname=Foodie sslmode=disable"
+	// connString := "user=postgres password=12345 dbname=Foodie sslmode=disable"
 	db, err := sql.Open("postgres", connString)
 	if err != nil {
 		s.T().Fatal(err)
