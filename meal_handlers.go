@@ -173,7 +173,7 @@ func CustomerInfoHandler(w http.ResponseWriter, r *http.Request) {
 
 	//Finally, we redirect the user to the original HTMl page
 	// (located at `/static/`), using the http libraries `Redirect` method
-	http.Redirect(w, r, "/static/homepage", http.StatusFound)
+	http.Redirect(w, r, "/", http.StatusFound)
 }
 
 func DeleteMealOrderHandler(w http.ResponseWriter, r *http.Request) {
