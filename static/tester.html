@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+
+ <title>Tester</title>
+</head>
+
+<body>
+  <h1>Confirm Order</h1>
+  <div>
+      <table>
+                <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Meal</th>
+                <th>Cost</th>
+                </tr>
+
+            {{range .Customers}}
+                <tr class="mealRow">
+                <td class="Plates"> {{.Name}} </td>
+                <td> {{.Address}} </td>
+                <td> {{.Meal}} </td>
+                <td> {{.TotalCost}} </td>
+                </tr>
+            {{end}}
+      </table>
+    
+  </div>
+
+</body>
+
+</html>
