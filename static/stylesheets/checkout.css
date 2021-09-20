@@ -127,14 +127,11 @@ input {
     overflow: hidden;
     width: 6.25rem;
 }
-.meal-1 .meal-img img {
-    -o-object-fit: contain;
-    object-fit: contain;
-    width: 100%;
-}
 
 .mealy {
     text-indent: -624.9375rem;
+    width:100px;
+    height:100px;
 }
 
 .description {
@@ -153,10 +150,6 @@ input {
     margin: 0;
 }
 
-img {
-    height: auto;
-    max-width: 100%;
-}
 
 .price {
     margin-bottom: .25rem;
