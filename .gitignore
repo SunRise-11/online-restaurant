@@ -3,3 +3,7 @@ vendor
 debug*
 .vscode/
 .DS_Store
+build
+local.mk
+logs/**
+!.gitkeep
